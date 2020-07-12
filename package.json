@@ -1,5 +1,5 @@
 {
-    "name": "weather-journal-app",
+    "name": "travel-plan-app",
     "version": "1.0.0",
     "description": "Udacity weather app project",
     "main": "server.js",
@@ -18,10 +18,10 @@
     "devDependencies": {},
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Barry-B15/weather-journal-app.git"
+        "url": "git+https://github.com/Barry-B15/travelPlanApp.git"
     },
     "bugs": {
-        "url": "https://github.com/Barry-B15/weather-journal-app/issues"
+        "url": "https://github.com/Barry-B15/travelPlanApp.git"
     },
-    "homepage": "https://github.com/Barry-B15/weather-journal-app#readme"
+    "homepage": "https://github.com/Barry-B15/travelPlanApp#readme"
 }
