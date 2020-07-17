@@ -1,6 +1,8 @@
 # Weather-Journal App Project
 
 ## Overview
+Ignore the content of this README, this app is still being developed.
+
 This project requires you to create an asynchronous web app that uses Web API and user data to dynamically update the UI. 
 
 ## Instructions
