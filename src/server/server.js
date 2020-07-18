@@ -25,7 +25,8 @@ app.listen(port, () => {
 });
 
 // Initialize the main project folder
-app.use(express.static('website'));
+//app.use(express.static('website')); // change to use 'dist
+app.use(express.static('dist'));
 
 //Server Setup
 

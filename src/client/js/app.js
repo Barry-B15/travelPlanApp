@@ -1,3 +1,5 @@
+import { validateForm } from "./formChecker.js"; // import validateForm from form Checker
+
 /* Global Variables */
 
 //=========== 2. set up the parts of the app ==================
@@ -11,7 +13,7 @@ let baseURL = 'https://api.openweathermap.org/data/2.5/weather?';
 const zipCode = document.getElementById('zip');
 const units = 'metric';
 
-const apiKey = 'Your API KEY HERE';
+const apiKey = '4d5b7b38c3135d07c13a6307ddc892f4'; //'Your API KEY HERE';
 
 const url = `${baseURL}zip=${zipCode}&units=${units}&appid=${apiKey}`; // may use url too
 
@@ -142,3 +144,10 @@ const updateUI = async() => {
         console.log("error", error);
     }
 }
+
+// initialize the app (this func will hold all the codes). performAction(e) can also be used for this purpose
+function init(event) {
+    //Todo
+} // then export the func here and go to import in index.js
+
+export { performAction, init }
