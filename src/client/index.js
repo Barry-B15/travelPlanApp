@@ -13,7 +13,8 @@ import "./styles/resets.scss";
 console.log(validateForm)
 
 alert("I exist!");
-alert("I am here!")
+alert("I am here!");
+alert("I Exist 2");
 
 // Call init on DOMContentLoaded event
 window.addEventListener('DOMContentLoaded', init)
