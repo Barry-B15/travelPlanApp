@@ -10,6 +10,8 @@ import "./styles/form.scss";
 import "./styles/header.scss";
 import "./styles/resets.scss";
 
+console.log(validateForm)
+
 alert("I exist!");
 alert("I am here!")
 

@@ -1,6 +1,8 @@
 // Setup empty JS object to act as endpoint for all routes
 projectData = [];
 
+var path = require('path')
+
 // Require Express to run server and routes
 const express = require('express');
 
@@ -25,8 +27,18 @@ app.listen(port, () => {
 });
 
 // Initialize the main project folder
-//app.use(express.static('website')); // change to use 'dist
+//app.use(express.static('website')); // change to use 'distn
 app.use(express.static('dist'));
+
+
+console.log(__dirname)
+
+app.get('/', function(req, res) {
+    //res.sendFile('/client/views/index.html') 
+
+    res.sendFile('dist/index.html') // now use the one in the dist file instead
+})
+
 
 //Server Setup
 
