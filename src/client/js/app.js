@@ -1,4 +1,5 @@
 import { validateForm } from "./formChecker.js"; // import validateForm from form Checker
+import "regenerator-runtime/runtime"; // fix for runtime issues when using async func stackoverflow
 
 /* Global Variables */
 
@@ -147,7 +148,19 @@ const updateUI = async() => {
 
 // initialize the app (this func will hold all the codes). performAction(e) can also be used for this purpose
 function init(event) {
-    //Todo
+    event.preventDefault()
+
+    let userText = document.getElementById('zip');
+    Client.validateForm(userText)
+
+    console.log("::: Form Submitted :::")
+        // fetch('http://localhost:8000') // fetch('http://localhost:8000/test')
+        //     .then(res => res.json())
+        //     .then(function(res) {
+        //         document.getElementById('results').innerHTML = res.message;
+        //     })
+
+    //TODO
 } // then export the func here and go to import in index.js
 
 export { performAction, init }

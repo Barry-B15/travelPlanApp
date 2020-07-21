@@ -6,6 +6,8 @@ var path = require('path')
 // Require Express to run server and routes
 const express = require('express');
 
+//const mockAPIResponse = require('./mockAPI.js')
+
 // Start up an instance of app
 const app = express();
 /* Middleware*/
@@ -83,3 +85,8 @@ function addWeather(req, res) {
 app.get("*", (req, res) => {
     res.send("Page not found.")
 });
+
+// mock api
+// app.get('/test', function(req, res) {
+//     res.send(mockAPIResponse)
+// })
