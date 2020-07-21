@@ -6,6 +6,15 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: './src/client/index.js',
+    output: { // to output user text
+        libraryTarget: 'var',
+        library: 'Client'
+    },
+    devServer: {
+        port: 8000,
+    },
+    devtool: 'source-map',
+    stats: 'verbose',
 
     module: {
         rules: [{
@@ -35,9 +44,3 @@ module.exports = {
         })
     ]
 }
-
-
-
-
-
-// https://github.com/sunshinescience/travel_app
