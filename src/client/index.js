@@ -3,7 +3,7 @@ import { init } from "./js/app";
 import { validateForm } from "./js/formChecker";
 
 // import scss
-//import "./styles/style.scss";
+import "./styles/style.scss";
 import "./styles/base.scss";
 import "./styles/footer.scss";
 import "./styles/form.scss";
