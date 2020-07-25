@@ -53,7 +53,7 @@ function performAction(e) {
     //getWeatherData the projectData
     getNowWeather(baseURL, zipCode, apiKey)
         .then(function(projectData) {
-            postData('addWeather', { // as recommended by Mentor
+            postData('addWeather', {
                 temperature: projectData.main.temp,
                 date: newDate,
                 userFeeling: feelings,
@@ -83,7 +83,7 @@ const getNowWeather = async() => {
     weather_url = `${baseURL}zip=${zip}&units=${units}&appid=${apiKey}`;
 
 
-    const response = await fetch(weather_url);
+    const response = await fetch(weather_url); //fetch('http://localhost:8000/addWeather'); //
 
     try {
         const data = await response.json();
@@ -116,13 +116,14 @@ const postData = async(url = '', data = {}) => {
         return newData;
     } catch (error) {
         console.log("error", error);
+
     }
 }
 
 // Update The UI
 const updateUI = async() => {
 
-    const request = await fetch('/all');
+    const request = await fetch('/all'); //fetch('http://localhost:8000/all'); //
     console.log('UPDATE UI');
 
     try {
@@ -143,11 +144,12 @@ const updateUI = async() => {
         document.getElementById('country').innerHTML = allData[index].country;
     } catch (error) {
         console.log("error", error);
+        console.error("Update UIError", error);
     }
 }
 
 // initialize the app (this func will hold all the codes). performAction(e) can also be used for this purpose
-function init(event) {
+/* function init(event) {
     event.preventDefault()
 
     let userText = document.getElementById('zip');
@@ -162,5 +164,12 @@ function init(event) {
 
     //TODO
 } // then export the func here and go to import in index.js
+ */
+export {
+    performAction,
+    //init 
+}
 
-export { performAction, init }
+// http://api.geonames.org/search?q=tokio&maxRows=10&fuzzy=0.8&username=btorn  // this works even with typo in a city name
+
+// http://api.geonames.org/searchJSON?q=tokyo,akishima&maxRows=10&username=btorn // adding city and state
