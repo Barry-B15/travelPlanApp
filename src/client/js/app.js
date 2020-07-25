@@ -13,7 +13,7 @@ let baseURL = 'https://api.openweathermap.org/data/2.5/weather?';
 const zipCode = document.getElementById('zip');
 const units = 'metric';
 
-const apiKey = '4d5b7b38c3135d07c13a6307ddc892f4'; //'Your API KEY HERE';
+const apiKey =  'Your API KEY HERE';
 
 const url = `${baseURL}zip=${zipCode}&units=${units}&appid=${apiKey}`; // may use url too
 
