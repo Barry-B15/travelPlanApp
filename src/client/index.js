@@ -18,11 +18,11 @@ alert("I AM HERE!");
 
 
 // Call init on DOMContentLoaded event
-window.addEventListener('DOMContentLoaded', init)
+//window.addEventListener('DOMContentLoaded', init)
 
 
 export {
     performAction,
     validateForm,
-    init,
+    //init,
 }
