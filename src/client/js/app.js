@@ -4,8 +4,13 @@ import "regenerator-runtime/runtime"; // fix for runtime issues when using async
 /* Global Variables */
 
 //=========== 2. set up the parts of the app ==================
+// http://api.geonames.org/searchJSON?q=tokyo,akishima&maxRows=10&username=btorn
+let cityBaseURL = 'http://api.geonames.org/searchJSON?';
+const cityName = document.getElementById('city_name');
+const userName = 'btorn';
+const cityURL = `${cityBaseURL}q=${cityName}&maxRows=10&username=${userName}`;
 
-//Personal API Key from OpenWeatherMap API
+/* //Personal API Key from OpenWeatherMap API
 // create a base url
 let baseURL = 'https://api.openweathermap.org/data/2.5/weather?';
 
@@ -21,7 +26,7 @@ const url = `${baseURL}zip=${zipCode}&units=${units}&appid=${apiKey}`; // may us
 // get the DOM elements
 const status = document.getElementById('feelings').value;
 const currentDate = document.getElementById('date');
-
+ */
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -36,7 +41,7 @@ function performAction(e) {
 
     e.preventDefault(); //towards form validation
 
-    const zipCode = document.getElementById('zip').value;
+    /* const zipCode = document.getElementById('zip').value;
     const feelings = document.getElementById('feelings').value;
     const message = "Check Your Zip Code and try Again!";
 
@@ -48,49 +53,70 @@ function performAction(e) {
     if (feelings.length == 0) {
         alert("Please enter feelings");
         return
+    } */
+
+    const cityMsg = "Please check your city name and try again";
+    const cityName = document.getElementById('city_name').value;
+
+    if (cityName.length == 0) {
+        alert("Please enter a city name");
     }
 
     //getWeatherData the projectData
-    getNowWeather(baseURL, zipCode, apiKey)
+    getGeoNames(cityBaseURL, cityName, userName) //(baseURL, zipCode, apiKey)
         .then(function(projectData) {
-            postData('addWeather', {
-                temperature: projectData.main.temp,
+
+            let cityData = projectData.geonames[0];
+            console.log("::: City Data :::", cityData);
+
+            console.log("latlon:", cityData.lat, cityData.lng);
+
+            postData('addGeoNames', {
+                city: cityData.name,
+                country: cityData.countryCode,
+                country_name: cityData.countryName,
+                latitude: cityData.lat,
+                longitude: cityData.lng
+
+                /* temperature: projectData.main.temp,
                 date: newDate,
                 userFeeling: feelings,
 
                 // weather summary for city, country
                 weatherNow: projectData.weather[0].description,
                 cityName: projectData.name,
-                country: projectData.sys.country
+                country: projectData.sys.country */
             })
-
             updateUI();
+            // we can log here to the UI like so
+            document.getElementById('content').innerHTML = cityData.name;
         })
         .catch((error) => {
-            //console.log(error, message);
-            console.log("Error:", message);
+            console.log("Error:", cityMsg);
         });
 }
 
-const getNowWeather = async() => {
-    let zip, weather_url;
-
-    zip = zipCode.value;
+const getGeoNames = async() => {
+    let city, city_url, zip, weather_url;
 
     const errMessage = "City Not Found";
 
+    city = cityName.value;
+    //build the url for the city
+    city_url = `${cityBaseURL}q=${city}&maxRows=10&username=${userName}`;
+
+    const response = await fetch(city_url);
+
+    /* zip = zipCode.value;
     //build the url
     weather_url = `${baseURL}zip=${zip}&units=${units}&appid=${apiKey}`;
-
-
-    const response = await fetch(weather_url); //fetch('http://localhost:8000/addWeather'); //
+    const response = await fetch(weather_url); */
 
     try {
         const data = await response.json();
         console.log(data);
         return data;
     } catch (error) {
-
         console.log(errMessage);
     }
 
@@ -133,15 +159,23 @@ const updateUI = async() => {
         let index = allData.length - 1;
         // get the last entry in the array and update the ui with it as below
 
-        // update the HTML elements
-        document.getElementById('date').innerHTML = "Posted on: " + newDate;
-        document.getElementById('temp').innerHTML = "The temperature is: " + allData[index].temp + " &#176;" + "C"; //weather
-        document.getElementById('content').innerHTML = `And you're feeling: ` + allData[index].userFeeling;
+        /*  // update the HTML elements
+         document.getElementById('date').innerHTML = "Posted on: " + newDate;
+         document.getElementById('temp').innerHTML = "The temperature is: " + allData[index].temp + " &#176;" + "C"; //weather
+         document.getElementById('content').innerHTML = `And you're feeling: ` + allData[index].userFeeling;
 
-        //My Additions
-        document.getElementById('description').innerHTML = allData[index].description;
+         //My Additions
+         document.getElementById('description').innerHTML = allData[index].description;
+         document.getElementById('city').innerHTML = allData[index].name;
+         document.getElementById('country').innerHTML = allData[index].country; */
+
+        document.getElementById('lat').innerHTML = allData[index].lat;
+        document.getElementById('lon').innerHTML = allData[index].lng;
         document.getElementById('city').innerHTML = allData[index].name;
-        document.getElementById('country').innerHTML = allData[index].country;
+        document.getElementById('country').innerHTML = allData[index].countryName;
+        document.getElementById('country-code').innerHTML = allData[index].countryCode; // placeholder
+        document.getElementById('city-name').innerHTML = allData[index].name; // placeholder
+
     } catch (error) {
         console.log("error", error);
         console.error("Update UIError", error);
@@ -173,3 +207,7 @@ export {
 // http://api.geonames.org/search?q=tokio&maxRows=10&fuzzy=0.8&username=btorn  // this works even with typo in a city name
 
 // http://api.geonames.org/searchJSON?q=tokyo,akishima&maxRows=10&username=btorn // adding city and state
+
+// http://api.geonames.org/postalCodeSearchJSON?formatted=true&postalcode=9011&maxRows=10&username=demo&style=full
+
+// http: //api.geonames.org/searchJSON?q=london&maxRows=10&username=demo
