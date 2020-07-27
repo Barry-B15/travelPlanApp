@@ -60,19 +60,24 @@ app.get('/all', (req, res) => {
 
 })
 
-app.post('/addWeather', addWeather);
+app.post('/addGeoNames', addGeoNames);
 
-function addWeather(req, res) {
+function addGeoNames(req, res) {
     newEntry = {
-        //get the weather details from the body
-        //positions kind of reversed from what we wrote on client side (teperature: 
-        temp: req.body.temperature,
-        date: req.body.date,
-        userFeeling: req.body.userFeeling,
-        // update additional weather info
-        description: req.body.weatherNow,
-        name: req.body.cityName,
-        country: req.body.country
+        name: req.body.city,
+        countryCode: req.body.country,
+        lng: req.body.longitude,
+        lat: req.body.latitude,
+        countryName: req.body.country_name
+            //get the weather details from the body
+            //positions kind of reversed from what we wrote on client side (teperature: 
+            /*  temp: req.body.temperature,
+             date: req.body.date,
+             userFeeling: req.body.userFeeling,
+             // update additional weather info
+             description: req.body.weatherNow,
+             name: req.body.cityName,
+             country: req.body.country */
     }
 
     projectData.push(newEntry)
