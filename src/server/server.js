@@ -68,22 +68,32 @@ function addGeoNames(req, res) {
         countryCode: req.body.country,
         lng: req.body.longitude,
         lat: req.body.latitude,
-        countryName: req.body.country_name
-            //get the weather details from the body
-            //positions kind of reversed from what we wrote on client side (teperature: 
-            /*  temp: req.body.temperature,
-             date: req.body.date,
-             userFeeling: req.body.userFeeling,
-             // update additional weather info
-             description: req.body.weatherNow,
-             name: req.body.cityName,
-             country: req.body.country */
+        countryName: req.body.country_name,
+        date: req.body.date
+
+        //get the weather details from the body
+        //positions kind of reversed from what we wrote on client side (teperature: 
+        /*  temp: req.body.temperature,
+         date: req.body.date,
+         userFeeling: req.body.userFeeling,
+         // update additional weather info
+         description: req.body.weatherNow,
+         name: req.body.cityName,
+         country: req.body.country */
     }
 
     projectData.push(newEntry)
     res.send(projectData)
     console.log('POST')
     console.log(projectData)
+}
+
+app.post('/addWeatherData', addWeatherData);
+
+function addWeatherData(req, res) {
+    newEntry = {
+        weather: req.body.weather
+    }
 }
 
 // if page/route does not exist

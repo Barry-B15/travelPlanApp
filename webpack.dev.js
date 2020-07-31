@@ -5,6 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     mode: 'development',
+    target: 'node',
     entry: './src/client/index.js',
     output: { // to output user text
         libraryTarget: 'var',
@@ -44,3 +45,5 @@ module.exports = {
         })
     ]
 }
+
+//module.exports = [serverConfig, clientConfig];

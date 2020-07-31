@@ -1,5 +1,5 @@
-import { performAction, init } from './js/app'; // importing func performAction from js/app
-//import { init } from "./js/app";
+import { performAction, getWeatherData, postWeatherData, getGeoNames, postData } from './js/app'; // importing func performAction from js/app
+
 import { validateForm } from "./js/formChecker";
 
 // import scss
@@ -14,15 +14,12 @@ console.log(validateForm)
 
 alert("I EXIST!");
 alert("I AM HERE!");
-//alert("I Exist 2");
-
-
-// Call init on DOMContentLoaded event
-//window.addEventListener('DOMContentLoaded', init)
-
 
 export {
     performAction,
     validateForm,
-    //init,
+    getWeatherData,
+    postWeatherData,
+    getGeoNames,
+    postData,
 }
