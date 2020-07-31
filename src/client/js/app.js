@@ -1,32 +1,21 @@
 import { validateForm } from "./formChecker.js"; // import validateForm from form Checker
 import "regenerator-runtime/runtime"; // fix for runtime issues when using async func stackoverflow
+import { response } from "express";
 
 /* Global Variables */
 
 //=========== 2. set up the parts of the app ==================
 // http://api.geonames.org/searchJSON?q=tokyo,akishima&maxRows=10&username=btorn
 let cityBaseURL = 'http://api.geonames.org/searchJSON?';
-const cityName = document.getElementById('city_name');
+const cityName = document.getElementById('city_name').value; //### wio just added .value for weather
 const userName = 'btorn';
 const cityURL = `${cityBaseURL}q=${cityName}&maxRows=10&username=${userName}`;
 
-/* //Personal API Key from OpenWeatherMap API
-// create a base url
-let baseURL = 'https://api.openweathermap.org/data/2.5/weather?';
-
-
-// decalare a variable to handle dynamic zip code from user
-const zipCode = document.getElementById('zip');
-const units = 'metric';
-
-const apiKey = 'Your API KEY HERE';
-
-const url = `${baseURL}zip=${zipCode}&units=${units}&appid=${apiKey}`; // may use url too
-
-// get the DOM elements
-const status = document.getElementById('feelings').value;
-const currentDate = document.getElementById('date');
- */
+// for weather from weather.io 
+// https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=API_KEY
+let weatherBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
+const weatherApi_key = '0f1e6273790442689ecced5ee48ea5c0';
+const weatherURL = `${weatherBaseURL}city=${cityName}&key=${weatherApi_key}`;
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -37,14 +26,10 @@ let newDate = d.getMonth() + 1 + '-' + d.getDate() + '-' + d.getFullYear(); //mo
 document.getElementById('generate').addEventListener('click', performAction);
 
 function performAction(e) {
-    //getNowWeather(url);
 
     e.preventDefault(); //towards form validation
 
-    /* const zipCode = document.getElementById('zip').value;
-    const feelings = document.getElementById('feelings').value;
-    const message = "Check Your Zip Code and try Again!";
-
+    /* 
     // Form validation
     if (zipCode.length == 0) {
         alert("Please enter zip code");
@@ -62,7 +47,7 @@ function performAction(e) {
         alert("Please enter a city name");
     }
 
-    //getWeatherData the projectData
+    //getCityData from the projectData
     getGeoNames(cityBaseURL, cityName, userName) //(baseURL, zipCode, apiKey)
         .then(function(projectData) {
 
@@ -72,28 +57,57 @@ function performAction(e) {
             console.log("latlon:", cityData.lat, cityData.lng);
 
             postData('addGeoNames', {
-                city: cityData.name,
-                country: cityData.countryCode,
-                country_name: cityData.countryName,
-                latitude: cityData.lat,
-                longitude: cityData.lng
-
-                /* temperature: projectData.main.temp,
-                date: newDate,
-                userFeeling: feelings,
-
-                // weather summary for city, country
-                weatherNow: projectData.weather[0].description,
-                cityName: projectData.name,
-                country: projectData.sys.country */
-            })
-            updateUI();
-            // we can log here to the UI like so
+                    city: cityData.name,
+                    country: cityData.countryCode,
+                    country_name: cityData.countryName,
+                    latitude: cityData.lat,
+                    longitude: cityData.lng,
+                    date: newDate
+                })
+                // updateUI(); // moving this as I added new calls
+                // we can log here to the UI like so
             document.getElementById('content').innerHTML = cityData.name;
         })
-        .catch((error) => {
-            console.log("Error:", cityMsg);
-        });
+        // .catch((error) => {
+        //     console.log("Error:", cityMsg);
+        // });
+
+    //get weather data
+    getWeatherData(weatherBaseURL, city, weatherApi_key)
+        .then(function(projectData) {
+            let cityWeather = projectData.data;
+            console.log(city_weather)
+            console.log("::: City Weather :::", cityWeather);
+
+            postWeatherData('addWeatherdata', {
+                weather: cityWeather.weather.description
+            })
+        })
+
+    .catch((error) => {
+        console.log("Error:", cityMsg);
+    });
+}
+
+const getWeatherData = async() => {
+    let weather_url, city, latitude, longitude;
+
+    city = cityName.value;
+    weather_url = `${weatherBaseURL}city=${city}&key=${weatherApi_key}`;
+    //latitude = postData.geonames.latitude;
+    //longitude = postData.geonames.longitude;
+
+    // sending a request thru proxy to avoid CORS Error
+    const weatherResponse = await fetch(weather_url); //fetch(`https: //cors-anywhere.herokuapp.com/${weather_url}`);
+    //fetch(weather_url); replaced with the above
+
+    try {
+        const weather_data = await weatherResponse.json();
+        console.log(weather_data)
+        return weather_data;
+    } catch (error) {
+        console.log('WeatherResponseError', error);
+    }
 }
 
 const getGeoNames = async() => {
@@ -107,11 +121,6 @@ const getGeoNames = async() => {
 
     const response = await fetch(city_url);
 
-    /* zip = zipCode.value;
-    //build the url
-    weather_url = `${baseURL}zip=${zip}&units=${units}&appid=${apiKey}`;
-    const response = await fetch(weather_url); */
-
     try {
         const data = await response.json();
         console.log(data);
@@ -123,7 +132,7 @@ const getGeoNames = async() => {
 }
 
 //=========== 1. set up post data async fun ==================
-const postData = async(url = '', data = {}) => {
+const postData = async(url = '', data = {}) => { //post city data
     console.log(data);
 
     const response = await fetch(url, {
@@ -136,6 +145,29 @@ const postData = async(url = '', data = {}) => {
         body: JSON.stringify(data), // tell browser to handle json as string
     });
 
+    try {
+        const newData = await response.json();
+        console.log(newData);
+        return newData;
+    } catch (error) {
+        console.log("error", error);
+
+    }
+}
+
+// set up post weather data
+const postWeatherData = async(url = '', weather_data = {}) => {
+    console.log(weather_data);
+    const response = await fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(weather_data)
+    });
+
+    // Do I need this here?
     try {
         const newData = await response.json();
         console.log(newData);
@@ -159,22 +191,13 @@ const updateUI = async() => {
         let index = allData.length - 1;
         // get the last entry in the array and update the ui with it as below
 
-        /*  // update the HTML elements
-         document.getElementById('date').innerHTML = "Posted on: " + newDate;
-         document.getElementById('temp').innerHTML = "The temperature is: " + allData[index].temp + " &#176;" + "C"; //weather
-         document.getElementById('content').innerHTML = `And you're feeling: ` + allData[index].userFeeling;
-
-         //My Additions
-         document.getElementById('description').innerHTML = allData[index].description;
-         document.getElementById('city').innerHTML = allData[index].name;
-         document.getElementById('country').innerHTML = allData[index].country; */
-
         document.getElementById('lat').innerHTML = allData[index].lat;
         document.getElementById('lon').innerHTML = allData[index].lng;
         document.getElementById('city').innerHTML = allData[index].name;
         document.getElementById('country').innerHTML = allData[index].countryName;
         document.getElementById('country-code').innerHTML = allData[index].countryCode; // placeholder
         document.getElementById('city-name').innerHTML = allData[index].name; // placeholder
+        document.getElementById('date').innerHTML = "Date: " + newDate;
 
     } catch (error) {
         console.log("error", error);
@@ -182,32 +205,10 @@ const updateUI = async() => {
     }
 }
 
-// initialize the app (this func will hold all the codes). performAction(e) can also be used for this purpose
-/* function init(event) {
-    event.preventDefault()
-
-    let userText = document.getElementById('zip');
-    Client.validateForm(userText)
-
-    console.log("::: Form Submitted :::")
-        // fetch('http://localhost:8000') // fetch('http://localhost:8000/test')
-        //     .then(res => res.json())
-        //     .then(function(res) {
-        //         document.getElementById('results').innerHTML = res.message;
-        //     })
-
-    //TODO
-} // then export the func here and go to import in index.js
- */
 export {
     performAction,
-    //init 
+    getWeatherData,
+    postWeatherData,
+    getGeoNames,
+    postData,
 }
-
-// http://api.geonames.org/search?q=tokio&maxRows=10&fuzzy=0.8&username=btorn  // this works even with typo in a city name
-
-// http://api.geonames.org/searchJSON?q=tokyo,akishima&maxRows=10&username=btorn // adding city and state
-
-// http://api.geonames.org/postalCodeSearchJSON?formatted=true&postalcode=9011&maxRows=10&username=demo&style=full
-
-// http: //api.geonames.org/searchJSON?q=london&maxRows=10&username=demo

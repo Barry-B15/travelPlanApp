@@ -8,6 +8,7 @@ body {
     grid-auto-rows: minmax(150px, auto);
     grid-template-columns: repeat(2 1fr);
     height: 100%;
+    width: 100%;
     background: #cfcece;
     /* #81051c */
     color: #f0aa3a;
@@ -26,10 +27,10 @@ body {
 #trip-plans {
     display: flex;
     background: #fffff8;
-    width: 95%;
+    width: 98%;
 }
 
-#destination {
+#destination_img {
     background: #3b4a6b;
     width: 30%;
     padding: 0.3em;
@@ -42,8 +43,13 @@ body {
 }
 
 #latlon {
-    font-size: 16px;
+    font-size: 0.6em;
     color: #3b4a6b;
+}
+
+.myInput {
+    width: 95%;
+    padding-left: 1em;
 }
 
 
@@ -56,14 +62,14 @@ body {
 .entry {
     background: #3b4a6b67;
     width: 90vw;
-    margin-left: 2vw;
+    //margin-left: 2vw;
     margin-bottom: 1vh;
 }
 
 #entryHolder {
     margin: 0.5em auto;
     padding: 0.3em 0.5em;
-    width: 90%;
+    width: 80vw;
     background: #510d668e;
     justify-content: center;
 }
@@ -82,7 +88,15 @@ body {
 #country-code,
 #lat,
 #lon,
-#temperature,
+#count,
+#depart-date,
+#return-date,
+#depart-flight,
+#return-flight,
+#high,
+#low,
+#temp-high,
+#temp-low,
 #duration {
     color: lightcyan;
 }
@@ -100,14 +114,17 @@ body {
     padding-left: 1em;
 }
 
-#feelings {
+#destinations {
+    //feelings
     width: 90vw;
     height: 30vh;
     margin-left: 2vw;
 }
 
 .feel {
-    display: grid;
+    //display: grid;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -115,7 +132,7 @@ body {
 
 label {
     display: block;
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 input {
@@ -199,38 +216,55 @@ button:focus {
         /* box-shadow: 2px 4px 5px; */
         border: 0.5px solid goldenrod;
     }
-    .zip {
-        margin-left: 2vw;
-    }
-    #zip {
-        width: 40vw;
-        margin: 0;
-    }
-    .holder.feel {
-        width: 90vw;
-        margin-left: 2vw;
-    }
-    #city_name {
-        width: 55vw;
-        height: 20vh;
-        margin: 0;
-        grid-column: 1;
-        grid-row: 2;
-    }
     button {
         grid-column: 2;
         grid-row: 2;
         width: 25vw;
-        height: 15vh;
-        margin-left: 0.5em;
+        height: 7vw;
+        margin-right: 5em;
     }
-    .entry {
-        padding-left: 0.5em;
-        width: 85vw;
-    }
-    #entryHolder {
-        width: 95%;
-        margin: 1em auto;
-        padding: 0.5em;
-    }
+    // .zip {
+    //     margin-left: 2vw;
+    // }
+    // #zip {
+    //     width: 40vw;
+    //     margin: 0;
+    // }
+    // .holder.feel {
+    //     width: 90vw;
+    //     margin-left: 2vw;
+    // }
+    // #city_name {
+    //     width: 55vw;
+    //     height: 20vh;
+    //     margin: 0;
+    //     grid-column: 1;
+    //     grid-row: 2;
+    // }
+    // #depart-date,
+    // #return-date,
+    // #city_name {
+    //     width: 100px;
+    // }
+    // button {
+    //     grid-column: 2;
+    //     grid-row: 2;
+    //     width: 25vw;
+    //     height: 15vh;
+    //     margin-left: 0.5em;
+    // }
+    // .entry {
+    //     padding-left: 0.5em;
+    //     width: 85vw;
+    // }
+    // #entryHolder {
+    //     width: 95%;
+    //     margin: 1em auto;
+    //     padding: 0.5em;
+    // }
+    // .holder.feel {
+    //     display: grid;
+    //     grid-template-columns: 350px repeat(1, 1fr);
+    //     width: 50%;
+    // }
 }

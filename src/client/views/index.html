@@ -16,29 +16,28 @@
         <div class="holder headline">
             <h1>Travel Planner App</h1>
         </div>
-        <div id="trip-plans">
-            <div id="destination">
+        <div class="holder trip" id="trip-plans">
+            <div id="destination_img">
                 Destination Image here
             </div>
             <div id="trip-details">
                 <p>
-                    Your next trip is to <span id="city">city</span> in <span id="country">country</span> on:
+                    Your next trip is to <span id="city">city</span> in <span id="country">country</span> is <span id="count">30</span> days away:
                 </p>
                 <div id="latlon">
                     <ul>
-                        <li>Latitude: <span id="lat">lat</span> </li>
-                        <li>Longitude: <span id="lon">lon</span> </li>
                         <li>Duration:
-                            <ul id="duration">
-                                <li>From: 07/31/2020</li>
-                                <li>To: 08/30/2020</li>
+                            <ul id="this-trip">
+                                <li>Departing:<span id="depart-date">13:55 2020/07/31</span> On <span id="depart-flight">JAL FL3326</span></li>
+
+                                <li>Returning: <span id="return-date">17:10 2020/08/30</span> On <span id="return-flight">JAL FL4326</span></li>
+
                             </ul>
                         </li>
+                        <li>Latitude: <span id="lat">lat</span> </li>
+                        <li>Longitude: <span id="lon">lon</span> </li>
                         <li>
-                            Flight Info:
-                        </li>
-                        <li>
-                            The weather is forecast to be <span id="description">beautiful</span> with a temperature of <span id="temperature">28 deg celsius </span>
+                            The weather is forecast to be <span id="description">beautiful</span> with a <span id="high">High: </span> <span id="temp-high">38</span> deg C and <span id="low">Low: </span> <span id="temp-low">28</span>deg celsius.
                         </li>
                     </ul>
                 </div>
@@ -52,8 +51,15 @@
         <div class="holder feel">
             <!-- <div class="holder feel" onsubmit="return Client.performAction(e)"> -->
 
-            <label for="feelings">How are you feeling today?</label>
-            <textarea class="myInput" id="city_name" placeholder="Enter city to visit" rows="9" cols="50"></textarea>
+            <label for="startDate">When is your start date?</label>
+            <input type="text" class="myInput" id="startDate" placeholder="Enter departing date yyyy-mm-dd">
+
+            <label for="returnDate">When is your return date?</label>
+            <input type="text" class="myInput" id="returnDate" placeholder="Enter returning date yyyy-mm-dd">
+
+            <label for="city_name">What city are you going to next?</label>
+            <textarea class="myInput" id="city_name" placeholder="Enter city to visit" rows="3" cols="25"></textarea>
+
             <button id="generate" type="submit"> Generate </button>
 
             <!-- <button id="generate" type="submit" onClick="return Client.performAction(e)" onsubmit="return Client.performAction(e)"> Generate </button> -->
