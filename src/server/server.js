@@ -56,7 +56,7 @@ app.post('/add', (request, response) => {
 // initialize for all weather data
 app.get('/all', (req, res) => {
     res.send(projectData);
-    console.log(projectData);
+    //console.log(projectData);
 
 })
 
@@ -85,7 +85,7 @@ function addGeoNames(req, res) {
     projectData.push(newEntry)
     res.send(projectData)
     console.log('POST')
-    console.log(projectData)
+        //console.log(projectData)
 }
 
 app.post('/addWeatherData', addWeatherData);

@@ -1,3 +1,9 @@
+/* import path from('path');
+import webpack from('webpack');
+import HtmlWebPackPlugin from("html-webpack-plugin")
+import { CleanWebpackPlugin } from('clean-webpack-plugin')
+ */
+
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
@@ -8,6 +14,11 @@ module.exports = {
     target: 'node',
     entry: './src/client/index.js',
     output: { // to output user text
+        // require not defined error fix?
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js',
+        // fix? end , now add dist/bundles to html and run webpack on command line to create bundle.js
+
         libraryTarget: 'var',
         library: 'Client'
     },

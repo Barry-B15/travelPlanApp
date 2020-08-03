@@ -1,6 +1,7 @@
 import { validateForm } from "./formChecker.js"; // import validateForm from form Checker
 import "regenerator-runtime/runtime"; // fix for runtime issues when using async func stackoverflow
 import { response } from "express";
+//import { hello } from "./module.js";
 
 /* Global Variables */
 
@@ -87,6 +88,8 @@ function performAction(e) {
     .catch((error) => {
         console.log("Error:", cityMsg);
     });
+
+    //require.end();
 }
 
 const getWeatherData = async() => {
@@ -205,10 +208,16 @@ const updateUI = async() => {
     }
 }
 
+// let val = hello(); // val is "Hello"
+// alert(val);
+
 export {
     performAction,
     getWeatherData,
     postWeatherData,
     getGeoNames,
     postData,
+    //hello,
 }
+
+module.exports = performAction;
