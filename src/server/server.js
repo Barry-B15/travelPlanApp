@@ -31,6 +31,7 @@ app.listen(port, () => {
 // Initialize the main project folder
 //app.use(express.static('website')); // change to use 'distn
 app.use(express.static('dist'));
+//app.use(express.static('build'));
 
 
 console.log(__dirname)
@@ -38,7 +39,8 @@ console.log(__dirname)
 app.get('/', function(req, res) {
     //res.sendFile('/client/views/index.html') 
 
-    res.sendFile('dist/index.html') // now use the one in the dist file instead
+    res.sendFile('dist/index.html'); // now use the one in the dist file instead
+    //res.sendFile('build/index.html')
 })
 
 
@@ -56,7 +58,7 @@ app.post('/add', (request, response) => {
 // initialize for all weather data
 app.get('/all', (req, res) => {
     res.send(projectData);
-    console.log(projectData);
+    //console.log(projectData);
 
 })
 
@@ -85,7 +87,7 @@ function addGeoNames(req, res) {
     projectData.push(newEntry)
     res.send(projectData)
     console.log('POST')
-    console.log(projectData)
+        //console.log(projectData)
 }
 
 app.post('/addWeatherData', addWeatherData);
