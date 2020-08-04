@@ -1,12 +1,6 @@
  import { validateForm } from "./formChecker.js"; // import validateForm from form Checker
  import "regenerator-runtime/runtime"; // fix for runtime issues when using async func stackoverflow
- import { response } from "express";
- //import { hello } from "./module.js";
 
- /* Global Variables */
- //browserify test
- // const uniqid = require('uniqid');
- // document.getElementById('result').innerHTML = uniqid();
 
  //=========== 2. set up the parts of the app ==================
  // http://api.geonames.org/searchJSON?q=tokyo,akishima&maxRows=10&username=btorn

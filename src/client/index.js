@@ -8,11 +8,6 @@ import {
 
 import { validateForm } from "./js/formChecker";
 
-//import { hello } from "./js/module.js";
-
-//var performAction = require('./app.js');
-//console.log(performAction);
-
 // import scss
 import "./styles/style.scss";
 import "./styles/base.scss";
@@ -29,14 +24,6 @@ validateForm();
 alert("I EXIST!");
 alert("I AM HERE!");
 
-// let val = hello(); // val is "Hello"
-// alert(val);
-
-//browserify test
-// const uniqid = require("uniqid");
-// //document.getElementById('result').innerHTML = uniqid();
-// console.log(uniqid);
-
 export {
     performAction,
     validateForm,
@@ -44,5 +31,4 @@ export {
     postWeatherData,
     getGeoNames,
     postData,
-    //hello,
 }

@@ -32,16 +32,11 @@ module.exports = {
         libraryTarget: 'var',
         library: 'Client',
 
-        //added this to fix: require is undefined
-        // path: path.join(__dirname, 'build'),
-        // filename: 'backend.js'
-
         // require not defined error fix?
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
-            // fix? end , now add dist/bundles to html and run webpack on command line to create bundle.js
+            // fix end , now run webpack on command line to create bundle.js
     },
-    //externals: nodeModules,
 
     devServer: {
         port: 8000,
@@ -62,26 +57,18 @@ module.exports = {
         ]
     },
     plugins: [
-            new HtmlWebPackPlugin({
-                template: "./src/client/views/index.html",
-                filename: "./index.html",
-            }),
-            new CleanWebpackPlugin({
-                // Simulate the removal of files
-                dry: true,
-                // Write Logs to Console
-                verbose: true,
-                // Automatically remove all unused webpack assets on rebuild
-                cleanStaleWebpackAssets: true,
-                protectWebpackAssets: false
-            })
-            /* new webpack.IgnorePlugin(/\.(css|less)$/),
-            new webpack.BannerPlugin('require("source-map-support").install();', {
-                raw: true,
-                entryOnly: false
-            }) */
-        ]
-        //devtool: 'sourcemap'
+        new HtmlWebPackPlugin({
+            template: "./src/client/views/index.html",
+            filename: "./index.html",
+        }),
+        new CleanWebpackPlugin({
+            // Simulate the removal of files
+            dry: true,
+            // Write Logs to Console
+            verbose: true,
+            // Automatically remove all unused webpack assets on rebuild
+            cleanStaleWebpackAssets: true,
+            protectWebpackAssets: false
+        })
+    ]
 }
-
-//module.exports = [serverConfig, clientConfig];
