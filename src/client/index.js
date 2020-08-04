@@ -21,14 +21,21 @@ import "./styles/form.scss";
 import "./styles/header.scss";
 import "./styles/resets.scss";
 
+
+console.log(validateForm);
+console.log("::: Running ValidateForm in indexjs :::");
 validateForm();
-console.log(validateForm)
 
 alert("I EXIST!");
 alert("I AM HERE!");
 
 // let val = hello(); // val is "Hello"
 // alert(val);
+
+//browserify test
+// const uniqid = require("uniqid");
+// //document.getElementById('result').innerHTML = uniqid();
+// console.log(uniqid);
 
 export {
     performAction,

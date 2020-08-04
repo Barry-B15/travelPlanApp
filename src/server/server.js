@@ -31,6 +31,7 @@ app.listen(port, () => {
 // Initialize the main project folder
 //app.use(express.static('website')); // change to use 'distn
 app.use(express.static('dist'));
+//app.use(express.static('build'));
 
 
 console.log(__dirname)
@@ -38,7 +39,8 @@ console.log(__dirname)
 app.get('/', function(req, res) {
     //res.sendFile('/client/views/index.html') 
 
-    res.sendFile('dist/index.html') // now use the one in the dist file instead
+    res.sendFile('dist/index.html'); // now use the one in the dist file instead
+    //res.sendFile('build/index.html')
 })
 
 

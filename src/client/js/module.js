@@ -1,3 +1,5 @@
-// export function hello() {
-//     return "Hello Tokyo!";
-// }
+  /* function hello() {
+        return "Hello Tokyo!";
+    }
+
+    export { hello } */
