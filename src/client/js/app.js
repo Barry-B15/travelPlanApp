@@ -1,16 +1,19 @@
  import { validateForm } from "./formChecker.js"; // import validateForm from form Checker
  import "regenerator-runtime/runtime"; // fix for runtime issues when using async func stackoverflow
 
+ //5.1 store trip data as blank
+ let tripData = {}
 
  //=========== 2. set up the parts of the app ==================
  // http://api.geonames.org/searchJSON?q=tokyo,akishima&maxRows=10&username=btorn
  let cityBaseURL = 'http://api.geonames.org/searchJSON?';
- const cityName = document.getElementById('city_name').value; //### wio just added .value for weather
+ const cityName = document.getElementById('city_name'); //### wio just added .value for weather
  const userName = 'btorn';
  const cityURL = `${cityBaseURL}q=${cityName}&maxRows=10&username=${userName}`;
 
  // for weather from weather.io 
  // https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=API_KEY
+ // https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=0f1e6273790442689ecced5ee48ea5c0
  let weatherBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
  const weatherApi_key = '0f1e6273790442689ecced5ee48ea5c0';
  const weatherURL = `${weatherBaseURL}city=${cityName}&key=${weatherApi_key}`;
@@ -19,7 +22,7 @@
  let d = new Date();
  let newDate = d.getMonth() + 1 + '-' + d.getDate() + '-' + d.getFullYear(); //month index starts at 0, add +1 to even up
  //currentDate.textContent = "Posted on: " + newDate;
-
+ document.getElementById('date').innerHTML = newDate;
  //add listener and a callback function to the button
  document.getElementById('generate').addEventListener('click', performAction);
 
@@ -65,21 +68,33 @@
                  // updateUI(); // moving this as I added new calls
                  // we can log here to the UI like so
              document.getElementById('content').innerHTML = cityData.name;
+             document.getElementById('country').innerHTML = cityData.countryName;
+             document.getElementById('city').innerHTML = cityData.name;
+             document.getElementById('date').innerHTML = newDate;
+
          })
          // .catch((error) => {
          //     console.log("Error:", cityMsg);
          // });
 
-     //get weather data
-     getWeatherData(weatherBaseURL, city, weatherApi_key)
-         .then(function(projectData) {
-             let cityWeather = projectData.data;
-             console.log(city_weather);
+     //get weather data ###5.5
+     getWeatherData(weatherBaseURL, city, weatherApi_key) //###(tripData)
+         .then(function(weather_data) { //###(projectData) {
+             let cityWeather = weather_data.data[0]; //### projectData.data;
+             console.log(weather_data);
              console.log("::: City Weather :::", cityWeather);
 
-             postWeatherData('addWeatherdata', {
-                 weather: cityWeather.weather.description
+             postWeatherData('addWeatherData', {
+                 weather: cityWeather.weather.description,
+                 high: cityWeather.high_temp, //" &#176;" + "C"
+                 low: cityWeather.low_temp
              })
+
+             //display to ui: for testing only, move to ui later
+             document.getElementById('temp').innerHTML = cityWeather.weather.description;
+             document.getElementById('description').innerHTML = cityWeather.weather.description;
+             document.getElementById('temp-high').innerHTML = cityWeather.high_temp;
+             document.getElementById('temp-low').innerHTML = cityWeather.low_temp;
          })
 
      .catch((error) => {
@@ -89,7 +104,8 @@
      //require.end();
  }
 
- const getWeatherData = async() => {
+ //5.2 Get weather from weather io, use tripdata as asyn param
+ const getWeatherData = async() => { //tripData
      let weather_url, city, latitude, longitude;
 
      city = cityName.value;
@@ -97,16 +113,20 @@
      //latitude = postData.geonames.latitude;
      //longitude = postData.geonames.longitude;
 
+     //5.3 get lat, lon from tripData
+     //  latitude = tripData.latitude;
+     //  longitude = tripData.longitude;
+
      // sending a request thru proxy to avoid CORS Error
      const weatherResponse = await fetch(weather_url); //fetch(`https: //cors-anywhere.herokuapp.com/${weather_url}`);
      //fetch(weather_url); replaced with the above
 
      try {
          const weather_data = await weatherResponse.json();
-         console.log(weather_data);
+         console.log("WeatherData : ", weather_data);
          return weather_data;
      } catch (error) {
-         console.log('WeatherResponseError', error);
+         console.log("WeatherResponseError :", error);
      }
  }
 
@@ -158,7 +178,7 @@
  // set up post weather data
  const postWeatherData = async(url = '', weather_data = {}) => {
      console.log(weather_data);
-     const response = await fetch(url, {
+     const response = await fetch(url, { // can I take off this 2nd para?
          method: 'POST',
          credentials: 'same-origin',
          headers: {

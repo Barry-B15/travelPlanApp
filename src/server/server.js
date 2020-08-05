@@ -94,7 +94,9 @@ app.post('/addWeatherData', addWeatherData);
 
 function addWeatherData(req, res) {
     newEntry = {
-        weather: req.body.weather
+        weather: req.body.weather,
+        high_temp: req.body.high,
+        low_temp: req.body.low
     }
 }
 
