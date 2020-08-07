@@ -22,7 +22,6 @@
                 Destination Image here
             </div>
             <div id="trip-details">
-                <div id="uniqid"></div>
                 <p>
                     Your next trip is to <span id="city">city</span> in <span id="country">country</span> is <span id="count">30</span> days away:
                 </p>
@@ -39,7 +38,7 @@
                         <li>Latitude: <span id="lat">lat</span> </li>
                         <li>Longitude: <span id="lon">lon</span> </li>
                         <li>
-                            The weather is forecast to be <span id="description">beautiful</span> with a <span id="high">High: </span> <span id="temp-high">38</span> deg C and <span id="low">Low: </span> <span id="temp-low">28</span>deg celsius.
+                            The weather is forecast to be <span id="description">beautiful</span> with a <span id="high">High: </span> <span id="temp-high">38</span> °C and <span id="low">Low: </span> <span id="temp-low">28</span> °C.
                         </li>
                     </ul>
                 </div>
@@ -54,10 +53,10 @@
             <!-- <div class="holder feel" onsubmit="return Client.performAction(e)"> -->
 
             <label for="startDate">When is your start date?</label>
-            <input type="text" class="myInput" id="startDate" placeholder="Enter departing date yyyy-mm-dd">
+            <input type="text" class="myInput" id="startDate" placeholder="Enter departing date mm-dd-yyyy">
 
             <label for="returnDate">When is your return date?</label>
-            <input type="text" class="myInput" id="returnDate" placeholder="Enter returning date yyyy-mm-dd">
+            <input type="text" class="myInput" id="returnDate" placeholder="Enter returning date mm-dd-yyyy">
 
             <label for="city_name">What city are you going to next?</label>
             <textarea class="myInput" id="city_name" placeholder="Enter city to visit" rows="3" cols="25"></textarea>
@@ -76,6 +75,7 @@
                 <div id="content"></div>
                 <div id="date"></div>
                 <div id="result"></div>
+                <div id="m-date"></div>
             </div>
         </div>
     </div>

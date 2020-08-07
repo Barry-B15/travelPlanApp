@@ -21,7 +21,11 @@ console.log(validateForm);
 console.log("::: Running ValidateForm in indexjs :::");
 validateForm();
 
+// const moment = require("moment");
+// console.log(moment());
+
 alert("I EXIST!");
+
 alert("I AM HERE!");
 
 export {

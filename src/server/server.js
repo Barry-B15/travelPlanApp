@@ -71,7 +71,10 @@ function addGeoNames(req, res) {
         lng: req.body.longitude,
         lat: req.body.latitude,
         countryName: req.body.country_name,
-        date: req.body.date
+        date: req.body.date,
+        startDate: req.body.tripDate,
+        daysToTrip: req.body.tripDue
+
 
         //get the weather details from the body
         //positions kind of reversed from what we wrote on client side (teperature: 
@@ -94,7 +97,9 @@ app.post('/addWeatherData', addWeatherData);
 
 function addWeatherData(req, res) {
     newEntry = {
-        weather: req.body.weather
+        weather: req.body.weather,
+        high_temp: req.body.high,
+        low_temp: req.body.low
     }
 }
 
@@ -107,3 +112,5 @@ app.get("*", (req, res) => {
 // app.get('/test', function(req, res) {
 //     res.send(mockAPIResponse)
 // })
+
+//module.exports = require("moment");
