@@ -20,11 +20,6 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
-//add moment
-// const moment = require("moment");
-// console.log(moment());
-
-
 // declare the port for the server to run on
 const port = process.env.PORT || 8000;
 
@@ -77,7 +72,7 @@ function addGeoNames(req, res) {
         lat: req.body.latitude,
         countryName: req.body.country_name,
         date: req.body.date,
-        startDateInput: req.body.tripDate,
+        startDate: req.body.tripDate,
         daysToTrip: req.body.tripDue
 
 

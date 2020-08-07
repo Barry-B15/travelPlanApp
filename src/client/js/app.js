@@ -2,10 +2,11 @@
  //import { countDownToTrip } from "tripCountDown";
  import "regenerator-runtime/runtime"; // fix for runtime issues when using async func stackoverflow
 
- //5.1 store trip data as blank
- //let tripData = {}
+ import moment from 'moment';
 
+ moment().format();
 
+ const m = moment();
 
  //=========== 2. set up the parts of the app ==================
  // http://api.geonames.org/searchJSON?q=tokyo,akishima&maxRows=10&username=btorn
@@ -16,7 +17,7 @@
 
  // for weather from weather.io 
  // https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=API_KEY
- // https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=0f1e6273790442689ecced5ee48ea5c0
+
  let weatherBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
  const weatherApi_key = '0f1e6273790442689ecced5ee48ea5c0';
  const weatherURL = `${weatherBaseURL}city=${cityName}&key=${weatherApi_key}`;
@@ -48,17 +49,20 @@
      const cityName = document.getElementById('city_name').value;
 
      // get user input for dates
-     const startDateInput = document.getElementById("startDate").value;
-     const currentDate = newDate;
-     //const daysToTrip = newDate(startDateInput); //???
-     const daysToTrip = tripDetails(); //document.getElementById("count");
+     //const startDateInput = document.getElementById("startDate").value; // 
+     newDate;
+
+     var currentDate = moment().format("L");
+     var startDate = moment(document.getElementById("startDate").value, "MM-DD-YYYY");
+     //var endDate = moment(document.getElementById("returnDate").value, "MM-DD-YYYY");
+     var daysToTrip = moment.duration(startDate.diff(currentDate));
 
      if (cityName.length == 0) {
          alert("Please enter a city name");
      }
 
      //getCityData from the projectData
-     getGeoNames(cityBaseURL, cityName, userName) //(baseURL, zipCode, apiKey)
+     getGeoNames(cityBaseURL, cityName, userName) //(baseURL, zipCode,countdownDates apiKey)
          .then(function(projectData) {
 
              let cityData = projectData.geonames[0];
@@ -73,20 +77,23 @@
                      latitude: cityData.lat,
                      longitude: cityData.lng,
                      date: newDate,
-                     tripDate: startDateInput,
+                     tripDate: startDate,
                      tripDue: daysToTrip
                  })
                  // updateUI(); // moving this as I added new calls
                  // we can log here to the UI like so
+                 //##############################Display to UI###########################################
              document.getElementById('content').innerHTML = cityData.name;
              document.getElementById('country').innerHTML = cityData.countryName;
              document.getElementById('city').innerHTML = cityData.name;
              document.getElementById('date').innerHTML = newDate;
-             document.getElementById("count").innerHTML = daysToTrip;
-             document.getElementById("depart-date").innerHTML = startDateInput;
-
+             //document.getElementById("count").innerHTML = daysToTrip;
+             document.getElementById("depart-date").innerHTML = startDate;
+             document.getElementById('lat').innerHTML = cityData.lat;
+             document.getElementById('lon').innerHTML = cityData.lng;
+             //######################################################################### 
              // call the trip deyails
-             tripDetails(startDate);
+             //tripDetails(startDate);
          })
          // .catch((error) => {
          //     console.log("Error:", cityMsg);
@@ -100,16 +107,17 @@
              console.log("::: City Weather :::", cityWeather);
 
              postWeatherData('addWeatherData', {
-                 weather: cityWeather.weather.description,
-                 high: cityWeather.high_temp, //" &#176;" + "C"
-                 low: cityWeather.low_temp
-             })
-
-             //display to ui: for testing only, move to ui later
+                     weather: cityWeather.weather.description,
+                     high: cityWeather.high_temp, //" &#176;" + "C"
+                     low: cityWeather.low_temp
+                 })
+                 //########################Display#################################################
+                 //display to ui: for testing only, move to ui later
              document.getElementById('temp').innerHTML = cityWeather.weather.description;
              document.getElementById('description').innerHTML = cityWeather.weather.description;
              document.getElementById('temp-high').innerHTML = cityWeather.high_temp;
              document.getElementById('temp-low').innerHTML = cityWeather.low_temp;
+             //######################################################################### 
          })
 
      .catch((error) => {
@@ -117,6 +125,8 @@
      });
 
      //require.end();
+     countdownDates(daysToTrip);
+     //updateUI();
  }
 
  //5.2 Get weather from weather io, use tripdata as asyn param
@@ -213,8 +223,30 @@
      }
  }
 
+ // start a countdown
+ function countdownDates(days) {
+     const m = moment();
+
+
+     var currentDate = moment().format("L");
+     var comingTrip = moment(document.getElementById("startDate").value, "MM/DD/YYYY");
+     var endDate = moment(document.getElementById("returnDate").value, "MM-DD-YYYY");
+
+     var dueIn = moment.duration(comingTrip.diff(currentDate)); // var dueIn
+     var days = dueIn.asDays();
+
+     document.getElementById('m-date').innerHTML = currentDate;
+     document.getElementById('return-date').innerHTML = endDate;
+     document.getElementById('result').innerHTML = days + " days";
+     document.getElementById('count').innerHTML = days;
+
+     console.log(days + "days");
+     console.log(currentDate);
+     return dueIn;
+
+ }
  // function to get trip details
- function tripDetails(countDown) {
+ /* function tripDetails(countDown) {
      let currentDate, startInput, departingDate;
 
      currentDate = d.getMonth() + 1 + '-' + d.getDate() + '-' + d.getFullYear(); //newDate;
@@ -227,7 +259,7 @@
      console.log(countDown);
      return daysLeft;
 
- }
+ } */
 
  // Update The UI
  const updateUI = async() => {
@@ -241,7 +273,6 @@
 
          let index = allData.length - 1;
          // get the last entry in the array and update the ui with it as below
-
          document.getElementById('lat').innerHTML = allData[index].lat;
          document.getElementById('lon').innerHTML = allData[index].lng;
          document.getElementById('city').innerHTML = allData[index].name;
@@ -267,6 +298,3 @@
      postData,
      //hello,
  }
-
- //module.exports = performAction;
- //module.exports = require("uniqid");
