@@ -22,7 +22,6 @@
                 Destination Image here
             </div>
             <div id="trip-details">
-                <div id="uniqid"></div>
                 <p>
                     Your next trip is to <span id="city">city</span> in <span id="country">country</span> is <span id="count">30</span> days away:
                 </p>
@@ -54,10 +53,10 @@
             <!-- <div class="holder feel" onsubmit="return Client.performAction(e)"> -->
 
             <label for="startDate">When is your start date?</label>
-            <input type="text" class="myInput" id="startDate" placeholder="Enter departing date yyyy-mm-dd">
+            <input type="text" class="myInput" id="startDate" placeholder="Enter departing date mm-dd-yyyy">
 
             <label for="returnDate">When is your return date?</label>
-            <input type="text" class="myInput" id="returnDate" placeholder="Enter returning date yyyy-mm-dd">
+            <input type="text" class="myInput" id="returnDate" placeholder="Enter returning date mm-dd-yyyy">
 
             <label for="city_name">What city are you going to next?</label>
             <textarea class="myInput" id="city_name" placeholder="Enter city to visit" rows="3" cols="25"></textarea>
@@ -76,6 +75,7 @@
                 <div id="content"></div>
                 <div id="date"></div>
                 <div id="result"></div>
+                <div id="m-date"></div>
             </div>
         </div>
     </div>

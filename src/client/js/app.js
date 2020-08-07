@@ -1,8 +1,11 @@
  import { validateForm } from "./formChecker.js"; // import validateForm from form Checker
+ //import { countDownToTrip } from "tripCountDown";
  import "regenerator-runtime/runtime"; // fix for runtime issues when using async func stackoverflow
 
  //5.1 store trip data as blank
- let tripData = {}
+ //let tripData = {}
+
+
 
  //=========== 2. set up the parts of the app ==================
  // http://api.geonames.org/searchJSON?q=tokyo,akishima&maxRows=10&username=btorn
@@ -44,6 +47,12 @@
      const cityMsg = "Please check your city name and try again";
      const cityName = document.getElementById('city_name').value;
 
+     // get user input for dates
+     const startDateInput = document.getElementById("startDate").value;
+     const currentDate = newDate;
+     //const daysToTrip = newDate(startDateInput); //???
+     const daysToTrip = tripDetails(); //document.getElementById("count");
+
      if (cityName.length == 0) {
          alert("Please enter a city name");
      }
@@ -63,7 +72,9 @@
                      country_name: cityData.countryName,
                      latitude: cityData.lat,
                      longitude: cityData.lng,
-                     date: newDate
+                     date: newDate,
+                     tripDate: startDateInput,
+                     tripDue: daysToTrip
                  })
                  // updateUI(); // moving this as I added new calls
                  // we can log here to the UI like so
@@ -71,7 +82,11 @@
              document.getElementById('country').innerHTML = cityData.countryName;
              document.getElementById('city').innerHTML = cityData.name;
              document.getElementById('date').innerHTML = newDate;
+             document.getElementById("count").innerHTML = daysToTrip;
+             document.getElementById("depart-date").innerHTML = startDateInput;
 
+             // call the trip deyails
+             tripDetails(startDate);
          })
          // .catch((error) => {
          //     console.log("Error:", cityMsg);
@@ -196,6 +211,22 @@
          console.log("error", error);
 
      }
+ }
+
+ // function to get trip details
+ function tripDetails(countDown) {
+     let currentDate, startInput, departingDate;
+
+     currentDate = d.getMonth() + 1 + '-' + d.getDate() + '-' + d.getFullYear(); //newDate;
+     departingDate = document.getElementById("startDate").value; //new Date().getDate();
+
+     const oneDayMilisecs = 1000 * 60 * 60 * 24;
+     const daysToGo = departingDate - currentDate;
+     const daysLeft = Math.floor(daysToGo / oneDayMilisecs);
+     console.log(daysLeft);
+     console.log(countDown);
+     return daysLeft;
+
  }
 
  // Update The UI

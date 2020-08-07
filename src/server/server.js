@@ -20,6 +20,11 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
+//add moment
+// const moment = require("moment");
+// console.log(moment());
+
+
 // declare the port for the server to run on
 const port = process.env.PORT || 8000;
 
@@ -71,7 +76,10 @@ function addGeoNames(req, res) {
         lng: req.body.longitude,
         lat: req.body.latitude,
         countryName: req.body.country_name,
-        date: req.body.date
+        date: req.body.date,
+        startDateInput: req.body.tripDate,
+        daysToTrip: req.body.tripDue
+
 
         //get the weather details from the body
         //positions kind of reversed from what we wrote on client side (teperature: 
@@ -109,3 +117,5 @@ app.get("*", (req, res) => {
 // app.get('/test', function(req, res) {
 //     res.send(mockAPIResponse)
 // })
+
+//module.exports = require("moment");

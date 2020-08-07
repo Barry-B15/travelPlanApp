@@ -38,7 +38,7 @@ module.exports = {
         filename: 'bundle.js'
             // fix? end , now add dist/bundles to html and run webpack on command line to create bundle.js 
     },
-    externals: nodeModules, // Fix for WARNING: in ./node_module/express/lib/view.js
+    //externals: nodeModules, // Fix for WARNING: in ./node_module/express/lib/view.js
 
     devServer: {
         port: 8000,
