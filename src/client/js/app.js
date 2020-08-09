@@ -4,6 +4,8 @@
 
  import moment, { duration } from 'moment';
 
+ //import img from './file.png';
+
  moment().format();
 
  const m = moment();
@@ -78,9 +80,11 @@
              console.log("::: City Img Data :::", cityImageData);
 
              postImgData('addImage', {
-                 image: cityImageData.previewURL // try webformatURL 640x427px 
-             })
-
+                     image: cityImageData.previewURL //previewURL // try webformatURL 640x427px 
+                 })
+                 // display destination image
+             document.getElementById("destination_img").innerHTML = cityImageData.previewURL;
+             //document.getElementById("destination_img").innerHTML = cityImageData;
          })
 
      //getCityData from the projectData
@@ -289,15 +293,11 @@
 
  // start a countdown
  function countdownDates(days) {
-     const m = moment();
-
 
      var currentDate = moment().format("L");
-     //var comingTrip = moment(document.getElementById("startDate").value, "MM-DD-YYYY");
 
      var comingTrip = moment(document.getElementById("startDate").value, "MM-DD-YYYY");
      var endDate = moment(document.getElementById("returnDate").value, "MM-DD-YYYY");
-     var x = comingTrip.format("L");
 
      var dueIn = moment.duration(comingTrip.diff(currentDate)); // var dueIn m.duration(comingTrip.diff(currentDate)); // var dueIn
      var days = dueIn.asDays();
