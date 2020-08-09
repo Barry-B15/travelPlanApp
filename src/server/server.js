@@ -103,6 +103,13 @@ function addWeatherData(req, res) {
     }
 }
 
+app.post('/addImage', addImage);
+
+function addImage(req, res) {
+    newEntry = {
+        previewURL: req.body.image
+    }
+}
 // if page/route does not exist
 app.get("*", (req, res) => {
     res.send("Page not found.")

@@ -2,7 +2,7 @@
  //import { countDownToTrip } from "tripCountDown";
  import "regenerator-runtime/runtime"; // fix for runtime issues when using async func stackoverflow
 
- import moment from 'moment';
+ import moment, { duration } from 'moment';
 
  moment().format();
 
@@ -17,16 +17,23 @@
 
  // for weather from weather.io 
  // https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=API_KEY
-
  let weatherBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
  const weatherApi_key = '0f1e6273790442689ecced5ee48ea5c0';
  const weatherURL = `${weatherBaseURL}city=${cityName}&key=${weatherApi_key}`;
+
+ // pixabay api for pix
+ // https://pixabay.com/api/?key=17819756-fbaad3ff5558affc08c739517&q=yellow+flowers&image_type=photo&pretty=true
+ let pixBaseURL = 'https://pixabay.com/api/?';
+ const pixApiKEY = '17819756-fbaad3ff5558affc08c739517';
+ const imgType = 'photo';
+ const imgURL = `${pixBaseURL}key=${pixApiKEY}&q=${cityName}&image_type=${imgType}`;
 
  // Create a new date instance dynamically with JS
  let d = new Date();
  let newDate = d.getMonth() + 1 + '-' + d.getDate() + '-' + d.getFullYear(); //month index starts at 0, add +1 to even up
  //currentDate.textContent = "Posted on: " + newDate;
  document.getElementById('date').innerHTML = newDate;
+
  //add listener and a callback function to the button
  document.getElementById('generate').addEventListener('click', performAction);
 
@@ -45,6 +52,9 @@
          return
      } */
 
+     // get the destination image for user
+
+     // get city name from user
      const cityMsg = "Please check your city name and try again";
      const cityName = document.getElementById('city_name').value;
 
@@ -60,6 +70,18 @@
      if (cityName.length == 0) {
          alert("Please enter a city name");
      }
+
+     // call get getCityImgData
+     getCityImgData(pixBaseURL, pixApiKEY, cityName)
+         .then(function(imageData) {
+             let cityImageData = imageData.hits[0];
+             console.log("::: City Img Data :::", cityImageData);
+
+             postImgData('addImage', {
+                 image: cityImageData.previewURL // try webformatURL 640x427px 
+             })
+
+         })
 
      //getCityData from the projectData
      getGeoNames(cityBaseURL, cityName, userName) //(baseURL, zipCode,countdownDates apiKey)
@@ -129,7 +151,27 @@
      //updateUI();
  }
 
- //5.2 Get weather from weather io, use tripdata as asyn param
+ // handle get destination image
+ const getCityImgData = async() => {
+     let image_url, city_img;
+
+     city_img = cityName.value;
+     image_url = `${pixBaseURL}key=${pixApiKEY}&q=${city_img}&image_type=${imgType}`;
+
+     const res = await fetch(image_url); // await the img respose
+
+     try {
+         const img_data = await res.json(); // await res fro json.
+         console.log("IMAGE :", img_data);
+         return img_data;
+
+     } catch (error) {
+         console.log("imgError :", error);
+     }
+
+ }
+
+ // Get weather from weather io, use tripdata as asyn param
  const getWeatherData = async() => { //tripData
      let weather_url, city, latitude, longitude;
 
@@ -173,7 +215,29 @@
      } catch (error) {
          console.log(errMessage);
      }
+ }
 
+ // post image data
+ const postImgData = async(url = '', imageData = {}) => {
+     console.log("ImageData :", imageData);
+
+     const res = await fetch(url, {
+         method: 'POST', // the method we want, can be POST, GET, PUT, DELETE etc
+         credentials: 'same-origin',
+         headers: {
+             'Content-Type': 'application/json', // we use json, tell app to use json data, Make sure to use same type of data in the body
+         },
+         // Body data type must match "Content-Type" header
+         body: JSON.stringify(imageData), // tell browser to handle json as string
+     });
+
+     try {
+         const newData = await res.json();
+         console.log(newData);
+         return newData;
+     } catch (error) {
+         console.log(error);
+     }
  }
 
  //=========== 1. set up post data async fun ==================
@@ -229,10 +293,13 @@
 
 
      var currentDate = moment().format("L");
-     var comingTrip = moment(document.getElementById("startDate").value, "MM/DD/YYYY");
-     var endDate = moment(document.getElementById("returnDate").value, "MM-DD-YYYY");
+     //var comingTrip = moment(document.getElementById("startDate").value, "MM-DD-YYYY");
 
-     var dueIn = moment.duration(comingTrip.diff(currentDate)); // var dueIn
+     var comingTrip = moment(document.getElementById("startDate").value, "MM-DD-YYYY");
+     var endDate = moment(document.getElementById("returnDate").value, "MM-DD-YYYY");
+     var x = comingTrip.format("L");
+
+     var dueIn = moment.duration(comingTrip.diff(currentDate)); // var dueIn m.duration(comingTrip.diff(currentDate)); // var dueIn
      var days = dueIn.asDays();
 
      document.getElementById('m-date').innerHTML = currentDate;
