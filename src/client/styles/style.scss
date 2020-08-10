@@ -26,20 +26,19 @@ body {
 
 #trip-plans {
     display: flex;
+    flex-direction: column;
     background: #fffff8;
     width: 98%;
 }
 
 #destination_img {
     background: #3b4a6b;
-    width: 30%;
-    padding: 0.3em;
+    padding: 0.1em;
 }
 
 #trip-details {
     background: #3b4a6b67; // #ababab;
-    width: 68%;
-    padding: 0.4em;
+    padding: 0.2em;
 }
 
 #latlon {
@@ -222,6 +221,22 @@ button:focus {
         width: 25vw;
         height: 7vw;
         margin-right: 5em;
+    }
+    #trip-plans {
+        display: flex;
+        flex-direction: row;
+        background: #fffff8;
+        width: 98%;
+    }
+    #destination_img {
+        background: #3b4a6b;
+        width: 60%;
+        padding: 0.1em;
+    }
+    #trip-details {
+        background: #3b4a6b67; // #ababab;
+        width: 39%;
+        padding: 0.2em;
     }
     // .zip {
     //     margin-left: 2vw;

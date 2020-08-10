@@ -107,7 +107,8 @@ app.post('/addImage', addImage);
 
 function addImage(req, res) {
     newEntry = {
-        previewURL: req.body.image
+        previewURL: req.body.image_s, // for small img
+        webformatURL: req.body.image // use a larger img
     }
 }
 // if page/route does not exist

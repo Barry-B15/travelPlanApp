@@ -80,11 +80,13 @@
              console.log("::: City Img Data :::", cityImageData);
 
              postImgData('addImage', {
-                     image: cityImageData.previewURL //previewURL // try webformatURL 640x427px 
+                     image_s: cityImageData.previewURL, //for small image
+                     image: cityImageData.webformatURL // use a larger img
+
                  })
                  // display destination image
-             document.getElementById("destination_img").innerHTML = cityImageData.previewURL;
-             //document.getElementById("destination_img").innerHTML = cityImageData;
+                 //document.getElementById("image").src = cityImageData.previewURL;
+             document.getElementById("image").src = cityImageData.webformatURL;
          })
 
      //getCityData from the projectData
@@ -125,7 +127,7 @@
          //     console.log("Error:", cityMsg);
          // });
 
-     //get weather data ###5.5
+     //get weatherbit.io data ###5.5
      getWeatherData(weatherBaseURL, city, weatherApi_key) //###(tripData)
          .then(function(weather_data) { //###(projectData) {
              let cityWeather = weather_data.data[0]; //### projectData.data;
@@ -177,7 +179,7 @@
 
  // Get weather from weather io, use tripdata as asyn param
  const getWeatherData = async() => { //tripData
-     let weather_url, city, latitude, longitude;
+     let weather_url, city;
 
      city = cityName.value;
      weather_url = `${weatherBaseURL}city=${city}&key=${weatherApi_key}`;
