@@ -6,12 +6,12 @@ body {
 #app {
     display: grid;
     grid-auto-rows: minmax(150px, auto);
-    grid-template-columns: repeat(2 1fr);
+    grid-template-columns: repeat( 1fr);
     height: 100%;
     width: 100%;
     background: #cfcece;
     /* #81051c */
-    color: #f0aa3a;
+    color: #473686;
     /* f0d43a */
     justify-content: center;
     grid-gap: 0.5em;
@@ -29,6 +29,7 @@ body {
     flex-direction: column;
     background: #fffff8;
     width: 98%;
+    color: #000000;
 }
 
 #destination_img {
@@ -49,6 +50,8 @@ body {
 .myInput {
     width: 95%;
     padding-left: 1em;
+    border: 1px solid #3b4a6b67;
+    border-radius: 0.5em;
 }
 
 
@@ -58,33 +61,14 @@ body {
     padding: 0;
 }
 
-.entry {
-    background: #3b4a6b67;
-    width: 90vw;
-    //margin-left: 2vw;
-    margin-bottom: 1vh;
-}
-
-#entryHolder {
-    margin: 0.5em auto;
-    padding: 0.3em 0.5em;
-    width: 80vw;
-    background: #510d668e;
-    justify-content: center;
-}
-
-#date,
-#temp,
-#content {
+#date {
     color: thistle;
     padding: 0.5em 1em;
 }
 
 #description,
 #city,
-#city-name,
 #country,
-#country-code,
 #lat,
 #lon,
 #count,
@@ -104,24 +88,13 @@ body {
     padding: 0.1em;
 }
 
-
-/*My additions */
-
-#zip {
-    margin-left: 5vw;
-    width: 80vw;
-    padding-left: 1em;
-}
-
 #destinations {
-    //feelings
     width: 90vw;
     height: 30vh;
     margin-left: 2vw;
 }
 
 .feel {
-    //display: grid;
     display: flex;
     flex-direction: column;
 }
@@ -139,7 +112,8 @@ input {
     height: 60px;
     width: 90vw;
     /*320px;*/
-    background: #3b4a6b67;
+    margin-top: 1em;
+    background: #fbfcfd67;
     color: #f0d43a;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
@@ -161,12 +135,13 @@ button {
 
 h1 {
     font-size: 36px;
+    color: #f0aa3a;
     background: #3b4a6b;
     padding: 1em;
 }
 
 textarea {
-    background: #3b4a6b67;
+    background: #fbfcfd67;
     color: #f0d43a;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
@@ -187,25 +162,27 @@ button:focus {
 
 ::placeholder {
     /* Firefox, Chrome, Opera */
-    color: #f0d43a;
+    color: #53994d; //#f0d43a
     font-family: 'Oswald', sans-serif;
 }
 
 :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #f0d43a;
+    color: #53994d;
     font-family: 'Oswald', sans-serif;
 }
 
 ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #f0d43a;
+    color: #53994d;
     font-family: 'Oswald', sans-serif;
 }
 
 @media screen and (min-width: 700px) {
     #app {
         text-align: left;
+        width: 98%;
+        justify-content: stretch;
     }
     h1 {
         font-size: 50px;
@@ -226,60 +203,56 @@ button:focus {
         display: flex;
         flex-direction: row;
         background: #fffff8;
-        width: 98%;
+        width: 100%;
     }
     #destination_img {
         background: #3b4a6b;
-        width: 60%;
+        width: 65%;
         padding: 0.1em;
     }
     #trip-details {
-        background: #3b4a6b67; // #ababab;
-        width: 39%;
+        //background: #3b4a6b67; // #ababab;
+        width: 35%;
         padding: 0.2em;
     }
-    // .zip {
-    //     margin-left: 2vw;
-    // }
-    // #zip {
-    //     width: 40vw;
-    //     margin: 0;
-    // }
-    // .holder.feel {
-    //     width: 90vw;
-    //     margin-left: 2vw;
-    // }
-    // #city_name {
-    //     width: 55vw;
-    //     height: 20vh;
-    //     margin: 0;
-    //     grid-column: 1;
-    //     grid-row: 2;
-    // }
-    // #depart-date,
-    // #return-date,
-    // #city_name {
-    //     width: 100px;
-    // }
-    // button {
-    //     grid-column: 2;
-    //     grid-row: 2;
-    //     width: 25vw;
-    //     height: 15vh;
-    //     margin-left: 0.5em;
-    // }
-    // .entry {
-    //     padding-left: 0.5em;
-    //     width: 85vw;
-    // }
-    // #entryHolder {
-    //     width: 95%;
-    //     margin: 1em auto;
-    //     padding: 0.5em;
-    // }
-    // .holder.feel {
-    //     display: grid;
-    //     grid-template-columns: 350px repeat(1, 1fr);
-    //     width: 50%;
-    // }
+    .holder.feel {
+        display: grid;
+        padding: 1px;
+        width: 100%;
+    }
+    #dates {
+        grid-column: 1/span 5;
+        grid-row: 1;
+    }
+    #startDate {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 2;
+        padding: 0.5em;
+        margin-left: 0.3em;
+    }
+    #returnDate {
+        grid-column-start: 4;
+        grid-column-end: 6;
+        grid-row-start: 2;
+        padding: 0.5em;
+        margin-left: 0.3em;
+    }
+    #next_city {
+        grid-column: 1/span 5;
+        grid-row: 3;
+    }
+    #city_name {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 4;
+        grid-row-end: 5;
+        margin-left: 0.3em;
+    }
+    #generate {
+        grid-column-start: 4;
+        grid-column-end: 6;
+        grid-row-start: 4;
+        grid-row-end: 5;
+    }
 }

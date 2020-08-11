@@ -1,3 +1,29 @@
+import moment from 'moment';
+moment().format();
+
+function countdownDates(days) {
+
+    var currentDate = moment().format("L"); // today's date
+
+    var startDate = moment(document.getElementById("startDate").value, "MM-DD-YYYY"); // trip departure
+    var endDate = moment(document.getElementById("returnDate").value, "MM-DD-YYYY"); // returning date
+
+    var dueIn = moment.duration(startDate.diff(currentDate)); // diff btw departure and return dates
+    var days = dueIn.asDays(); // convert to days
+
+    // update ui
+    document.getElementById('date').innerHTML = currentDate;
+    document.getElementById('return-date').innerHTML = endDate;
+    document.getElementById('count').innerHTML = days;
+
+    console.log(days + "days");
+    console.log(currentDate);
+    return dueIn;
+
+}
+
+export { countdownDates }
+
 /* function countDownToTrip() {
 
     let currentDate = new Date(); // today
