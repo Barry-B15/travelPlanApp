@@ -32,6 +32,13 @@ body {
     color: #000000;
 }
 
+#image {
+    display: block;
+    width: 98%; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #destination_img {
     background: #3b4a6b;
     padding: 0.1em;
@@ -62,10 +69,10 @@ body {
 }
 
 #date {
-    color: thistle;
     padding: 0.5em 1em;
 }
 
+#date,
 #description,
 #city,
 #country,
@@ -199,6 +206,12 @@ button:focus {
         height: 7vw;
         margin-right: 5em;
     }
+    // #image {
+    //     display: block;
+    //     width: 95%; //645px;
+    //     margin-left: auto;
+    //     margin-right: auto;
+    // }
     #trip-plans {
         display: flex;
         flex-direction: row;
@@ -207,12 +220,12 @@ button:focus {
     }
     #destination_img {
         background: #3b4a6b;
-        width: 65%;
+        width: 50%;
         padding: 0.1em;
     }
     #trip-details {
         //background: #3b4a6b67; // #ababab;
-        width: 35%;
+        width: 50%;
         padding: 0.2em;
     }
     .holder.feel {

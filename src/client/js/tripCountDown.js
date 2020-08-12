@@ -12,7 +12,7 @@ function countdownDates(days) {
     var days = dueIn.asDays(); // convert to days
 
     // update ui
-    document.getElementById('date').innerHTML = currentDate;
+    //document.getElementById('date').innerHTML = currentDate;
     document.getElementById('return-date').innerHTML = endDate;
     document.getElementById('count').innerHTML = days;
 

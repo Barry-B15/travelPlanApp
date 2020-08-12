@@ -18,9 +18,11 @@
             <h1>Travel Planner App</h1>
         </div>
         <div class="holder trip" id="trip-plans">
+            <div id="error"></div>
             <div id="destination_img">
                 <img src="" alt="city image" id="image">
             </div>
+            <div id="error"></div>
             <div id="trip-details">
                 <p>Today is: <span id="date"></span></p>
                 <p>
@@ -44,7 +46,7 @@
                             </ul>
                         </li>
                         <li>
-                            The weather is forecast to be <span id="description"></span> <br> with a <span id="high">High: </span> of <span id="temp-high"> - </span> °C and a <span id="low">Low: </span> of <span id="temp-low">-</span> °C.
+                            The weather is forecast to be <span id="description"></span> with a <span id="high">High: </span> of <span id="temp-high"> - </span> °C and a <span id="low">Low: </span> of <span id="temp-low">-</span> °C.
                         </li>
                     </ul>
                 </div>
@@ -65,7 +67,7 @@
             <input type="text" class="myInput" id="returnDate" placeholder="Enter returning date mm/dd/yyyy">
 
             <label for="city_name" id="next_city">What city are you going to next?</label>
-            <textarea class="myInput" id="city_name" placeholder="Enter city to visit" rows="3" cols="25"></textarea>
+            <textarea type="text" class="myInput" id="city_name" placeholder="Enter city to visit" rows="2" cols="25"></textarea>
 
             <button id="generate" type="submit"> Generate </button>
 
