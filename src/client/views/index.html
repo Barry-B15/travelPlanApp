@@ -18,31 +18,35 @@
             <h1>Travel Planner App</h1>
         </div>
         <div class="holder trip" id="trip-plans">
+            <div id="error"></div>
             <div id="destination_img">
-                <!-- Destination Image here -->
                 <img src="" alt="city image" id="image">
             </div>
+            <div id="error"></div>
             <div id="trip-details">
+                <p>Today is: <span id="date"></span></p>
                 <p>
-                    Your trip is to <span id="city">city</span> in <span id="country">country</span> is <span id="count">30</span> days away:
+                    Your trip to <span id="city">city</span> city in <span id="country">country</span> is <span id="count"></span> days away:
                 </p>
                 <div id="latlon">
                     <ul>
                         <li>Trip Details:
                             <ul id="this-trip">
-                                <li>Departing:<span id="depart-date">13:55 2020/07/31</span> On <span id="depart-flight">JAL FL3326</span></li>
+                                <li>Departing:<span id="depart-date"> </span>
+                                    <!-- On <span id="depart-flight"> </span> --></li>
 
-                                <li>Returning: <span id="return-date">17:10 2020/08/30</span> On <span id="return-flight">JAL FL4326</span></li>
+                                <li>Returning: <span id="return-date"> </span>
+                                    <!-- On <span id="return-flight"> </span> --></li>
                             </ul>
                         </li>
                         <li>City Coordinates are:
                             <ul>
-                                <li>Latitude: <span id="lat">lat</span> </li>
-                                <li>Longitude: <span id="lon">lon</span> </li>
+                                <li>Latitude: <span id="lat"> : </span> </li>
+                                <li>Longitude: <span id="lon"> : </span> </li>
                             </ul>
                         </li>
                         <li>
-                            The weather is forecast to be <span id="description">beautiful</span> <br> with a <span id="high">High: </span> of <span id="temp-high">38</span> °C and a <span id="low">Low: </span> of <span id="temp-low">28</span> °C.
+                            The weather is forecast to be <span id="description"></span> with a <span id="high">High: </span> of <span id="temp-high"> - </span> °C and a <span id="low">Low: </span> of <span id="temp-low">-</span> °C.
                         </li>
                     </ul>
                 </div>
@@ -56,31 +60,19 @@
         <div class="holder feel">
             <!-- <div class="holder feel" onsubmit="return Client.performAction(e)"> -->
 
-            <label for="startDate">When is your start date?</label>
-            <input type="text" class="myInput" id="startDate" placeholder="Enter departing date mm-dd-yyyy">
+            <label for="dates" id="dates">What are your trip dates?</label>
+            <input type="text" class="myInput" id="startDate" placeholder="Enter departing date mm/dd/yyyy">
 
-            <label for="returnDate">When is your return date?</label>
-            <input type="text" class="myInput" id="returnDate" placeholder="Enter returning date mm-dd-yyyy">
+            <!-- <label for="returnDate">When is your return date?</label> -->
+            <input type="text" class="myInput" id="returnDate" placeholder="Enter returning date mm/dd/yyyy">
 
-            <label for="city_name">What city are you going to next?</label>
-            <textarea class="myInput" id="city_name" placeholder="Enter city to visit" rows="3" cols="25"></textarea>
+            <label for="city_name" id="next_city">What city are you going to next?</label>
+            <textarea type="text" class="myInput" id="city_name" placeholder="Enter city to visit" rows="2" cols="25"></textarea>
 
             <button id="generate" type="submit"> Generate </button>
 
             <!-- <button id="generate" type="submit" onClick="return Client.performAction(e)" onsubmit="return Client.performAction(e)"> Generate </button> -->
             <!-- onClick="return Client.performAction(e) onsubmit="return Client.performAction(e) // I added looking at proj 4, not sure yet -->
-        </div>
-        <div class="holder entry">
-            <div class="title">Most Recent Entry</div>
-            <div class="summary">The weather is <span id="description">beautiful</span> today in <span id="city-name">your
-                    city</span>, <span id="country-code"></span>!</div>
-            <div id="entryHolder">
-                <div id="temp"></div>
-                <div id="content"></div>
-                <div id="date"></div>
-                <div id="result"></div>
-                <div id="m-date"></div>
-            </div>
         </div>
     </div>
 

@@ -74,17 +74,6 @@ function addGeoNames(req, res) {
         date: req.body.date,
         startDate: req.body.tripDate,
         daysToTrip: req.body.tripDue
-
-
-        //get the weather details from the body
-        //positions kind of reversed from what we wrote on client side (teperature: 
-        /*  temp: req.body.temperature,
-         date: req.body.date,
-         userFeeling: req.body.userFeeling,
-         // update additional weather info
-         description: req.body.weatherNow,
-         name: req.body.cityName,
-         country: req.body.country */
     }
 
     projectData.push(newEntry)
