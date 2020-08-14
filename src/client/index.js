@@ -1,9 +1,12 @@
 import {
     performAction,
+    getCityImgData,
+    postImgData,
     getWeatherData,
     postWeatherData,
     getGeoNames,
-    postData
+    postData,
+    checkINPUT,
 } from './js/app'; // importing func performAction from js/app
 
 import { validateForm } from "./js/formChecker";
@@ -21,18 +24,18 @@ console.log(validateForm);
 console.log("::: Running ValidateForm in indexjs :::");
 validateForm();
 
-// const moment = require("moment");
-// console.log(moment());
 
 alert("I EXIST!");
 
-alert("I AM HERE!");
+//alert("HI! GooD To See YOu HERE!");
 
 export {
     performAction,
-    validateForm,
+    getCityImgData,
+    postImgData,
     getWeatherData,
     postWeatherData,
     getGeoNames,
     postData,
+    checkINPUT,
 }

@@ -1,271 +1,238 @@
-body {
-    background: #fffff8;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-#app {
-    display: grid;
-    grid-auto-rows: minmax(150px, auto);
-    grid-template-columns: repeat( 1fr);
-    height: 100%;
-    width: 100%;
-    background: #cfcece;
-    /* #81051c */
-    color: #473686;
-    /* f0d43a */
-    justify-content: center;
-    grid-gap: 0.5em;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
-    text-align: center;
-    min-width: 200px;
-}
-
-
-/* Style for travel*/
-
-#trip-plans {
-    display: flex;
-    flex-direction: column;
-    background: #fffff8;
-    width: 98%;
-    color: #000000;
-}
-
-#image {
-    display: block;
-    width: 98%; 
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#destination_img {
-    background: #3b4a6b;
-    padding: 0.1em;
-}
-
-#trip-details {
-    background: #3b4a6b67; // #ababab;
-    padding: 0.2em;
-}
-
-#latlon {
-    font-size: 0.6em;
-    color: #3b4a6b;
-}
-
-.myInput {
-    width: 95%;
-    padding-left: 1em;
-    border: 1px solid #3b4a6b67;
-    border-radius: 0.5em;
-}
-
+// body {
+//     background: #fffff8;
+//     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+// }
+// #app {
+//     display: grid;
+//     grid-auto-rows: minmax(150px, auto);
+//     grid-template-columns: repeat( 1fr);
+//     height: 100%;
+//     width: 100%;
+//     background: #cfcece;
+//     /* #81051c */
+//     color: #473686;
+//     /* f0d43a */
+//     justify-content: center;
+//     grid-gap: 0.5em;
+//     font-size: 20px;
+//     font-family: 'Oswald', sans-serif;
+//     text-align: center;
+//     min-width: 200px;
+// }
+// /* Style for travel*/
+// #trip-plans {
+//     display: flex;
+//     flex-direction: column;
+//     background: #fffff8;
+//     width: 98%;
+//     color: #000000;
+// }
+// #image {
+//     display: block;
+//     width: 98%;
+//     margin-left: auto;
+//     margin-right: auto;
+// }
+// #destination_img {
+//     background: #3b4a6b;
+//     padding: 0.1em;
+// }
+// #trip-details {
+//     background: #3b4a6b67; // #ababab;
+//     padding: 0.2em;
+// }
+// #latlon {
+//     font-size: 0.6em;
+//     color: #3b4a6b;
+// }
+// .myInput {
+//     width: 95%;
+//     padding-left: 1em;
+//     border: 1px solid #3b4a6b67;
+//     border-radius: 0.5em;
+// }
 
 /* End Style for travel*/
 
-.holder {
-    padding: 0;
-}
-
-#date {
-    padding: 0.5em 1em;
-}
-
-#date,
-#description,
-#city,
-#country,
-#lat,
-#lon,
-#count,
-#depart-date,
-#return-date,
-#depart-flight,
-#return-flight,
-#high,
-#low,
-#temp-high,
-#temp-low,
-#duration {
-    color: lightcyan;
-}
-
-.headline {
-    padding: 0.1em;
-}
-
+// .holder {
+//     padding: 0;
+// }
+// #date {
+//     padding: 0.5em 1em;
+// }
+// #date,
+// #description,
+// #city,
+// #country,
+// #lat,
+// #lon,
+// #count,
+// #depart-date,
+// #return-date,
+// #depart-flight,
+// #return-flight,
+// #high,
+// #low,
+// #temp-high,
+// #temp-low,
+// #duration {
+//     color: lightcyan;
+// }
+// .headline {
+//     padding: 0.1em;
+// }
 #destinations {
     width: 90vw;
     height: 30vh;
     margin-left: 2vw;
 }
 
-.feel {
-    display: flex;
-    flex-direction: column;
-}
-
+// .feel {
+//     display: flex;
+//     flex-direction: column;
+// }
 
 /*  Basic Styling To Override Default For Basic HTML Elements */
 
-label {
-    display: block;
-    font-size: 1.2em;
-}
-
-input {
-    display: block;
-    height: 60px;
-    width: 90vw;
-    /*320px;*/
-    margin-top: 1em;
-    background: #fbfcfd67;
-    color: #f0d43a;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
-    border: none;
-}
-
-button {
-    width: 50vw;
-    height: 15vw;
-    background: #3b4a6b;
-    color: #f0d43a;
-    font-size: 26px;
-    font-family: 'Oswald', sans-serif;
-    border: none;
-    box-shadow: 2px 4px 5px #444;
-    margin: 0.3em auto;
-    /* margin-left: 20vw; */
-}
-
-h1 {
-    font-size: 36px;
-    color: #f0aa3a;
-    background: #3b4a6b;
-    padding: 1em;
-}
-
-textarea {
-    background: #fbfcfd67;
-    color: #f0d43a;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
-}
-
-
-/* Reset style for HTML element on active to have no border*/
-
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-    outline: none;
-}
-
-
-/* Style for Placeholder Text*/
-
-::placeholder {
-    /* Firefox, Chrome, Opera */
-    color: #53994d; //#f0d43a
-    font-family: 'Oswald', sans-serif;
-}
-
-:-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    color: #53994d;
-    font-family: 'Oswald', sans-serif;
-}
-
-::-ms-input-placeholder {
-    /* Microsoft Edge */
-    color: #53994d;
-    font-family: 'Oswald', sans-serif;
-}
-
-@media screen and (min-width: 700px) {
-    #app {
-        text-align: left;
-        width: 98%;
-        justify-content: stretch;
-    }
-    h1 {
-        font-size: 50px;
-        /* color: whitesmoke; */
-        padding: 0.1em;
-        width: fit-content;
-        /* box-shadow: 2px 4px 5px; */
-        border: 0.5px solid goldenrod;
-    }
-    button {
-        grid-column: 2;
-        grid-row: 2;
-        width: 25vw;
-        height: 7vw;
-        margin-right: 5em;
-    }
-    // #image {
-    //     display: block;
-    //     width: 95%; //645px;
-    //     margin-left: auto;
-    //     margin-right: auto;
-    // }
-    #trip-plans {
-        display: flex;
-        flex-direction: row;
-        background: #fffff8;
-        width: 100%;
-    }
-    #destination_img {
-        background: #3b4a6b;
-        width: 50%;
-        padding: 0.1em;
-    }
-    #trip-details {
-        //background: #3b4a6b67; // #ababab;
-        width: 50%;
-        padding: 0.2em;
-    }
-    .holder.feel {
-        display: grid;
-        padding: 1px;
-        width: 100%;
-    }
-    #dates {
-        grid-column: 1/span 5;
-        grid-row: 1;
-    }
-    #startDate {
-        grid-column-start: 1;
-        grid-column-end: 4;
-        grid-row-start: 2;
-        padding: 0.5em;
-        margin-left: 0.3em;
-    }
-    #returnDate {
-        grid-column-start: 4;
-        grid-column-end: 6;
-        grid-row-start: 2;
-        padding: 0.5em;
-        margin-left: 0.3em;
-    }
-    #next_city {
-        grid-column: 1/span 5;
-        grid-row: 3;
-    }
-    #city_name {
-        grid-column-start: 1;
-        grid-column-end: 4;
-        grid-row-start: 4;
-        grid-row-end: 5;
-        margin-left: 0.3em;
-    }
-    #generate {
-        grid-column-start: 4;
-        grid-column-end: 6;
-        grid-row-start: 4;
-        grid-row-end: 5;
-    }
-}
+// label {
+//     display: block;
+//     font-size: 1.2em;
+// }
+// input {
+//     display: block;
+//     height: 60px;
+//     width: 90vw;
+//     /*320px;*/
+//     margin-top: 1em;
+//     background: #fbfcfd67;
+//     color: #f0d43a;
+//     font-size: 20px;
+//     font-family: 'Oswald', sans-serif;
+//     border: none;
+// }
+// button {
+//     width: 50vw;
+//     height: 15vw;
+//     background: #3b4a6b;
+//     color: #f0d43a;
+//     font-size: 26px;
+//     font-family: 'Oswald', sans-serif;
+//     border: none;
+//     box-shadow: 2px 4px 5px #444;
+//     margin: 0.3em auto;
+//     /* margin-left: 20vw; */
+// }
+// h1 {
+//     font-size: 36px;
+//     color: #f0aa3a;
+//     background: #3b4a6b;
+//     padding: 1em;
+// }
+// textarea {
+//     background: #fbfcfd67;
+//     color: #f0d43a;
+//     font-size: 20px;
+//     font-family: 'Oswald', sans-serif;
+// }
+// /* Reset style for HTML element on active to have no border*/
+// input:focus,
+// select:focus,
+// textarea:focus,
+// button:focus {
+//     outline: none;
+// }
+// /* Style for Placeholder Text*/
+// ::placeholder {
+//     /* Firefox, Chrome, Opera */
+//     color: #53994d; //#f0d43a
+//     font-family: 'Oswald', sans-serif;
+// }
+// :-ms-input-placeholder {
+//     /* Internet Explorer 10-11 */
+//     color: #53994d;
+//     font-family: 'Oswald', sans-serif;
+// }
+// ::-ms-input-placeholder {
+//     /* Microsoft Edge */
+//     color: #53994d;
+//     font-family: 'Oswald', sans-serif;
+// }
+// /*  ############################# For Larger Screen ################################### */
+// @media screen and (min-width: 700px) {
+//     #app {
+//         text-align: left;
+//         width: 98%;
+//         justify-content: stretch;
+//     }
+//     h1 {
+//         font-size: 50px;
+//         /* color: whitesmoke; */
+//         padding: 0.1em;
+//         width: fit-content;
+//         /* box-shadow: 2px 4px 5px; */
+//         border: 0.5px solid goldenrod;
+//     }
+//     button {
+//         grid-column: 2;
+//         grid-row: 2;
+//         width: 25vw;
+//         height: 7vw;
+//         margin-right: 5em;
+//     }
+//     #trip-plans {
+//         display: flex;
+//         flex-direction: row;
+//         background: #fffff8;
+//         width: 100%;
+//     }
+//     #destination_img {
+//         background: #3b4a6b;
+//         width: 50%;
+//         padding: 0.1em;
+//     }
+//     #trip-details {
+//         //background: #3b4a6b67; // #ababab;
+//         width: 50%;
+//         padding: 0.2em;
+//     }
+//     .holder.feel {
+//         display: grid;
+//         padding: 1px;
+//         width: 100%;
+//     }
+//     #dates {
+//         grid-column: 1/span 5;
+//         grid-row: 1;
+//     }
+//     #startDate {
+//         grid-column-start: 1;
+//         grid-column-end: 4;
+//         grid-row-start: 2;
+//         padding: 0.5em;
+//         margin-left: 0.3em;
+//     }
+//     #returnDate {
+//         grid-column-start: 4;
+//         grid-column-end: 6;
+//         grid-row-start: 2;
+//         padding: 0.5em;
+//         margin-left: 0.3em;
+//     }
+//     #next_city {
+//         grid-column: 1/span 5;
+//         grid-row: 3;
+//     }
+//     #city_name {
+//         grid-column-start: 1;
+//         grid-column-end: 4;
+//         grid-row-start: 4;
+//         grid-row-end: 5;
+//         margin-left: 0.3em;
+//     }
+//     #generate {
+//         grid-column-start: 4;
+//         grid-column-end: 6;
+//         grid-row-start: 4;
+//         grid-row-end: 5;
+//     }
+// }

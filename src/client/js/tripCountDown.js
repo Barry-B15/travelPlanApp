@@ -1,6 +1,10 @@
 import moment from 'moment';
 moment().format();
 
+function sum(a, b) {
+    return a + b;
+}
+
 function countdownDates(days) {
 
     var currentDate = moment().format("L"); // today's date
@@ -22,7 +26,7 @@ function countdownDates(days) {
 
 }
 
-export { countdownDates }
+export { countdownDates, sum }
 
 /* function countDownToTrip() {
 

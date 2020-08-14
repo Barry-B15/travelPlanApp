@@ -1,0 +1,190 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: #fffff8;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+h1 {
+    font-size: 1em;
+    color: #f0aa3a;
+    background: #3b4a6b;
+    padding: 1em;
+}
+
+#app {
+    display: grid;
+    grid-auto-rows: minmax(150px, auto);
+    grid-template-columns: repeat(1fr);
+    height: 100%;
+    width: 100%;
+    margin-top: 0;
+    background: #cfcece;
+    color: #473686;
+    justify-content: center;
+    grid-gap: 0.5em;
+    font-size: 20px;
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+    min-width: 200px;
+}
+
+.holder {
+    padding: 0;
+}
+
+
+/* Style for travel*/
+
+#trip-plans {
+    display: flex;
+    flex-direction: column;
+    background: #fffff8;
+    width: 98%;
+    margin: 0 0.2em 0 0.2em;
+    color: #000000;
+}
+
+#image {
+    display: block;
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#destination_img {
+    background: #3b4a6b;
+    padding: 0.1em;
+}
+
+#trip-details {
+    background: #3b4a6b67; // #ababab;
+    padding: 0.2em;
+}
+
+#latlon {
+    font-size: 0.6em;
+    color: #3b4a6b;
+}
+
+#date {
+    padding: 0.5em 1em;
+}
+
+#date,
+#description,
+#city,
+#country,
+#lat,
+#lon,
+#count,
+#depart-date,
+#return-date,
+#depart-flight,
+#return-flight,
+#high,
+#low,
+#temp-high,
+#temp-low,
+#duration {
+    color: lightcyan;
+}
+
+ul {
+    li {
+        list-style: none;
+        line-height: 1.3em;
+        padding: 0.5em 1em;
+    }
+}
+
+
+/*  ############################# For Larger Screen ################################### */
+
+@media screen and (min-width: 700px) {
+    #app {
+        text-align: left;
+        width: 100%;
+        justify-content: stretch;
+    }
+    h1 {
+        font-size: 50px;
+        /* color: whitesmoke; */
+        padding: 0.1em;
+        width: fit-content;
+        /* box-shadow: 2px 4px 5px; */
+        border: 0.5px solid goldenrod;
+    }
+    button {
+        width: 25vw;
+        //height: 7vw;
+        margin-right: 5em;
+    }
+    textarea {
+        padding: 0.5em;
+        height: 7vw;
+        width: auto;
+    }
+    #trip-plans {
+        display: flex;
+        flex-direction: row;
+        background: #fffff8;
+        width: 98%;
+    }
+    #destination_img {
+        width: 50%;
+    }
+    #trip-details {
+        width: 50%;
+        padding: 0.3em;
+    }
+    .holder.feel {
+        display: grid;
+        padding: 1px;
+        width: 100%;
+    }
+    #dates {
+        grid-column: 1/span 5;
+        grid-row: 1;
+    }
+    #startDate {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 2;
+        padding: 0.5em;
+        margin-left: 0.3em;
+    }
+    #returnDate {
+        grid-column-start: 4;
+        grid-column-end: 6;
+        grid-row-start: 2;
+        padding: 0.5em;
+        margin-left: 0.3em;
+    }
+    #next_city {
+        grid-column: 1/span 5;
+        grid-row: 3;
+    }
+    #city_name {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 4;
+        grid-row-end: 4;
+        margin-left: 0.3em;
+        //height: 15vw;
+    }
+    #generate {
+        grid-column-start: 4;
+        grid-column-end: 5;
+        //grid-row-start: 4;
+        //grid-row-end: 4;
+        // width: 25vw;
+        // height: 7vw
+    }
+    #footer {
+        font-size: 0.8em;
+    }
+}

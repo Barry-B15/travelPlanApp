@@ -7,8 +7,9 @@
  moment().format();
 
  const m = moment();
- var currentDate = m.format("dddd MMM Mo YYYY"); // today's date 
- document.getElementById('date').innerHTML = currentDate;
+ //var currentDate = m.format("dddd MMM Mo YYYY"); // today's date 
+ var date = m.toString();
+ //document.getElementById('date').innerHTML = currentDate;
 
  //=========== 2. set up the parts of the app ==================
  // http://api.geonames.org/searchJSON?q=tokyo,akishima&maxRows=10&username=btorn
@@ -34,58 +35,52 @@
  let newDate = d.getMonth() + 1 + '-' + d.getDate() + '-' + d.getFullYear(); //month index starts at 0, add +1 to even up
  //currentDate.textContent = "Posted on: " + newDate;
 
- //add listener and a callback function to the button
- document.getElementById('generate').addEventListener('click', performAction);
 
- function performAction(e) {
+
+
+ //add listener and a callback function to the button
+ //document.getElementById('generate').addEventListener('click', performAction);
+ // this is failing jest, saw this in a knowledge question
+ document.addEventListener('DOMContentLoaded', () => {
+     const submitBtn = document.getElementById("generate");
+     submitBtn.addEventListener("click", performAction);
+
+     document.getElementById('date').innerHTML = date;
+
+ });
+
+ const performAction = function performAction(e) {
 
      e.preventDefault(); //towards form validation
-
-
      // get input from user
-
-     const cityName = document.getElementById('city_name').value;
-     var start = document.getElementById("startDate").value;
-     var end = document.getElementById("returnDate").value;
+     let cityName = document.getElementById('city_name').value;
+     let start = document.getElementById("startDate").value;
+     let end = document.getElementById("returnDate").value;
 
      // date
      newDate;
      // dates with moment.js
-     var currentDate = moment().format("L");
-     //var startDate = moment(document.getElementById("startDate").value, "MM-DD-YYYY");
-     var startDate = moment(start, "L");
-     //var endDate = moment(document.getElementById("returnDate").value, "MM-DD-YYYY");
-     var endDate = moment(end, "L");
-     var daysToTrip = moment.duration(startDate.diff(currentDate));
+     let currentDate = moment().format("MM/DD/YYYY", true); //new moment; //m.format("MM/DD/YYYY"); //
 
-     // Form validation
-     /* if (start.length == 0) {
-         alert("Please enter a departing date!");
-         return
-     }
-     if (end.length == 0) {
-         alert("Please enter a returning date!");
-         return
-     }
-     if (cityName.length == 0) {
-         alert("Please enter a city name");
-         return
-     } */
+     let startDate = moment(start, "MM/DD/YYYY", true); //new moment(start); //m.format(start, "MM/DD/YYYY"); //
+
+     let endDate = moment(end, "MM/DD/YYYY", true); //m.format(end, "MM/DD/YYYY"); //
+
+     let daysToTrip = moment.duration(startDate.diff(currentDate)); //moment.duration(startDate.diff(currentDate)); //startDate.diff(currentDate, 'days'); //
+
+
+     // Form validation moved this to formChecker
+
      const tripErrMsg = "Please check your city name and dates then try again";
 
      // validate form
-
      if (checkINPUT(startDate, endDate, cityName) == true) {
 
-         console.log("::: Form Submitted :::");
-
-         // error message
-         const tripMsg = "Please check your city name and dates then try again";
-
-         /* } else {
-             alert(tripErrMsg);
-             //return false;
-         } */
+         /* return true
+     } else {
+         alert(tripErrMsg);
+         return false;
+     } */
 
          // call get getCityImgData
          getCityImgData(pixBaseURL, pixApiKEY, cityName)
@@ -108,8 +103,7 @@
                      document.getElementById("destination_img").innerHTML = "Sorry, no image for this destination";
                  }
              })
-
-         //getCityData from the projectData
+             //getCityData from the projectData
          getGeoNames(cityBaseURL, cityName, userName) //(baseURL, zipCode,countdownDates apiKey)
              .then(function(projectData) {
 
@@ -142,8 +136,7 @@
                  // call the trip deyails
                  //tripDetails(startDate);
              })
-
-         //get weatherbit.io data ###5.5
+             //get weatherbit.io data ###5.5
          getWeatherData(weatherBaseURL, city, weatherApi_key) //###(tripData)
              .then(function(weather_data) { //###(projectData) {
                  let cityWeather = weather_data.data[0]; //### projectData.data;
@@ -165,22 +158,15 @@
 
          .catch((error) => {
              console.log("Error:", error);
-             // .catch((error) => {
-             //     console.log("Error:", cityMsg);
-             // });
          });
-
          //require.end();
          countdownDates(daysToTrip);
-         //validateForm(startDate, cityName);
-         //updateUI();
-         //return true;
 
+         return true
      } else {
          alert(tripErrMsg);
-         //return false;
+         return false;
      }
-
  }
 
  function checkINPUT(input) {
@@ -190,9 +176,11 @@
 
      if (validateForm(input)) { //(Client.validateForm(input)) {
          console.log(input);
+         return true;
      } else {
          console.log(errorMsg);
          //document.getElementById('error').innerHTML = 'Please, enter a valid url';
+         return false;
      }
  }
 
@@ -351,33 +339,49 @@
  // Update The UI
  const updateUI = async() => {
 
-     const request = await fetch('/all'); //fetch('http://localhost:8000/all'); //
-     console.log('UPDATE UI');
+         const request = await fetch('/all'); //fetch('http://localhost:8000/all'); //
+         console.log('UPDATE UI');
 
-     try {
-         const allData = await request.json();
-         console.log('allData: ' + allData);
+         try {
+             const allData = await request.json();
+             console.log('allData: ' + allData);
 
-         let index = allData.length - 1;
-         // get the last entry in the array and update the ui with it as below
-         document.getElementById('lat').innerHTML = allData[index].lat;
-         document.getElementById('lon').innerHTML = allData[index].lng;
-         document.getElementById('city').innerHTML = allData[index].name;
-         document.getElementById('country').innerHTML = allData[index].countryName;
-         //document.getElementById('country-code').innerHTML = allData[index].countryCode; // placeholder
-         //document.getElementById('city-name').innerHTML = allData[index].name; // placeholder
-         //document.getElementById('date').innerHTML = "Date: " + newDate;
+             let index = allData.length - 1;
+             // get the last entry in the array and update the ui with it as below
+             document.getElementById('lat').innerHTML = allData[index].lat;
+             document.getElementById('lon').innerHTML = allData[index].lng;
+             document.getElementById('city').innerHTML = allData[index].name;
+             document.getElementById('country').innerHTML = allData[index].countryName;
+             //document.getElementById('country-code').innerHTML = allData[index].countryCode; // placeholder
+             //document.getElementById('city-name').innerHTML = allData[index].name; // placeholder
+             //document.getElementById('date').innerHTML = "Date: " + newDate;
 
-     } catch (error) {
-         console.log("error", error);
-         console.error("Update UIError", error);
+         } catch (error) {
+             console.log("error", error);
+             console.error("Update UIError", error);
+         }
      }
- }
+     //  const theDate = document.getElementById('date');
+     //  theDate.innerHTML = currentDate;
+
+
+
+ //add listener and a callback function to the button
+ //document.getElementById('generate').addEventListener('click', performAction);
+ // this is failing jest, saw this in a knowledge question
+ /* document.addEventListener('DOMContentLoaded', () => {
+     const submitBtn = document.getElementById("generate");
+     submitBtn.addEventListener("click", performAction);
+ }); */
+
 
  export {
      performAction,
+     getCityImgData,
+     postImgData,
      getWeatherData,
      postWeatherData,
      getGeoNames,
      postData,
+     checkINPUT,
  }
