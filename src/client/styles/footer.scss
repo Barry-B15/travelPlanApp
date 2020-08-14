@@ -1,0 +1,19 @@
+#footer {
+    width: 98%;
+    background: #3b4a6b67;
+    margin-left: 0.4em;
+    padding: 0.2em;
+    font-size: 0.5em;
+    text-align: center;
+    color: #000000; //#f0d43a;
+    line-height: 2em;
+    .footer {
+        padding: 0.5em;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    #footer {
+        font-size: 0.7em;
+    }
+}

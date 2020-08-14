@@ -1,9 +1,3 @@
-/* import path from('path');
-import webpack from('webpack');
-import HtmlWebPackPlugin from("html-webpack-plugin")
-import { CleanWebpackPlugin } from('clean-webpack-plugin')
- */
-
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
