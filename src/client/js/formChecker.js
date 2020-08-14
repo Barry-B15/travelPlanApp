@@ -60,4 +60,5 @@ function validateForm(input) {
 export {
     validateForm,
     performAction,
+    checkINPUT,
 }

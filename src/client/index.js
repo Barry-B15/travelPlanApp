@@ -12,7 +12,7 @@ import {
 import { validateForm } from "./js/formChecker";
 
 // import scss
-import "./styles/style.scss";
+//import "./styles/style.scss";
 import "./styles/base.scss";
 import "./styles/footer.scss";
 import "./styles/form.scss";
@@ -25,7 +25,7 @@ console.log("::: Running ValidateForm in indexjs :::");
 validateForm();
 
 
-alert("I EXIST!");
+//alert("I EXIST!");
 
 //alert("HI! GooD To See YOu HERE!");
 
