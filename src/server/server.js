@@ -21,7 +21,7 @@ const cors = require('cors');
 app.use(cors());
 
 // declare the port for the server to run on
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8080;
 
 // Spin up the server
 app.listen(port, () => {
@@ -104,10 +104,3 @@ function addImage(req, res) {
 app.get("*", (req, res) => {
     res.send("Page not found.")
 });
-
-// mock api
-// app.get('/test', function(req, res) {
-//     res.send(mockAPIResponse)
-// })
-
-//module.exports = require("moment");

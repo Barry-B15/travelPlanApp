@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
+//const WorkboxPlugin = require('workbox-webpack-plugin');
 
 //added this to fix: require is undefined 
 //Fix for WARNING: in ./node_module/express/lib/view.js
@@ -42,7 +42,7 @@ module.exports = {
     //externals: nodeModules, // Fix for WARNING: in ./node_module/express/lib/view.js
 
     devServer: {
-        port: 8000,
+        port: 8080,
     },
     devtool: 'source-map',
     stats: 'verbose',
@@ -90,7 +90,7 @@ module.exports = {
             cleanStaleWebpackAssets: true,
             protectWebpackAssets: false
         }),
-        new WorkboxPlugin.GenerateSW(),
+        //new WorkboxPlugin.GenerateSW(),
     ]
 
 }
