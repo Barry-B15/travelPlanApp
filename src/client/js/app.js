@@ -7,9 +7,8 @@
  moment().format();
 
  const m = moment();
- //var currentDate = m.format("dddd MMM Mo YYYY"); // today's date 
+
  var date = m.toString();
- //document.getElementById('date').innerHTML = currentDate;
 
  //=========== 2. set up the parts of the app ==================
  // http://api.geonames.org/searchJSON?q=tokyo,akishima&maxRows=10&username=btorn
@@ -17,26 +16,19 @@
  const cityName = document.getElementById('city_name'); //### wio just added .value for weather
  const userName = 'btorn';
 
-
  // for weather from weather.io 
  let weatherBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
  const weatherApi_key = '0f1e6273790442689ecced5ee48ea5c0';
-
-
 
  // pixabay api for pix
  let pixBaseURL = 'https://pixabay.com/api/?';
  const pixApiKEY = '17819756-fbaad3ff5558affc08c739517';
  const imgType = 'photo';
 
-
  // Create a new date instance dynamically with JS
  let d = new Date();
  let newDate = d.getMonth() + 1 + '-' + d.getDate() + '-' + d.getFullYear(); //month index starts at 0, add +1 to even up
  //currentDate.textContent = "Posted on: " + newDate;
-
-
-
 
  //add listener and a callback function to the button
  //document.getElementById('generate').addEventListener('click', performAction);
@@ -60,117 +52,122 @@
      // date
      newDate;
      // dates with moment.js
-     let currentDate = moment().format("MM/DD/YYYY", true); //new moment; //m.format("MM/DD/YYYY"); //
+     let currentDate = moment();
+     //let currentDate = moment().format("L");
 
-     let startDate = moment(start, "MM/DD/YYYY", true); //new moment(start); //m.format(start, "MM/DD/YYYY"); //
-
-     let endDate = moment(end, "MM/DD/YYYY", true); //m.format(end, "MM/DD/YYYY"); //
-
-     let daysToTrip = moment.duration(startDate.diff(currentDate)); //moment.duration(startDate.diff(currentDate)); //startDate.diff(currentDate, 'days'); //
+     let startDate = moment(start, "MM/DD/YYYY", true); // ## just removed true
+     //let startDate = m.format(document.getElementById("startDate").value, "MM-DD-YYYY", true);
 
 
+     let endDate = moment(end, "MM/DD/YYYY", true); // ## just removed true
+     //let endDate = m.format(document.getElementById("returnDate").value, "MM-DD-YYYY", true);
+
+     let daysToTrip = moment.duration(startDate.diff(currentDate));
+     //moment.duration(startDate.diff(currentDate)); //startDate.diff(currentDate, 'days'); //
+
+     console.log("start: " + startDate, "end: " + endDate);
      // Form validation moved this to formChecker
 
      const tripErrMsg = "Please check your city name and dates then try again";
 
      // validate form
-     if (checkINPUT(startDate, endDate, cityName) == true) {
-
-         /* return true
+     //if (checkINPUT(startDate, endDate, cityName) == true) {
+     if (validateForm(startDate, endDate, cityName) == true) // {
+     /* return true
      } else {
          alert(tripErrMsg);
          return false;
      } */
 
-         // call get getCityImgData
+     // call get getCityImgData
          getCityImgData(pixBaseURL, pixApiKEY, cityName)
-             .then(function(imageData) {
-                 if (!imageData.hits[0] == 0) {
-                     let cityImageData = imageData.hits[0];
-                     console.log("::: City Img Data :::", cityImageData);
+         .then(function(imageData) {
+             if (!imageData.hits[0] == 0) {
+                 let cityImageData = imageData.hits[0];
+                 console.log("::: City Img Data :::", cityImageData);
 
-                     postImgData('addImage', {
-                             image_s: cityImageData.previewURL, //for small image
-                             image: cityImageData.webformatURL // use a larger img
+                 postImgData('addImage', {
+                         image_s: cityImageData.previewURL, //for small image
+                         image: cityImageData.webformatURL // use a larger img
 
-                         })
-                         // display destination image
-                         //document.getElementById("image").src = cityImageData.previewURL;
-                     document.getElementById("image").src = cityImageData.webformatURL;
-
-                 } else {
-                     console.log("No image found for the city");
-                     document.getElementById("destination_img").innerHTML = "Sorry, no image for this destination";
-                 }
-             })
-             //getCityData from the projectData
-         getGeoNames(cityBaseURL, cityName, userName) //(baseURL, zipCode,countdownDates apiKey)
-             .then(function(projectData) {
-
-                 let cityData = projectData.geonames[0];
-                 console.log("::: City Data :::", cityData);
-
-                 console.log("latlon:", cityData.lat, cityData.lng);
-
-                 postData('addGeoNames', {
-                         city: cityData.name,
-                         country: cityData.countryCode,
-                         country_name: cityData.countryName,
-                         latitude: cityData.lat,
-                         longitude: cityData.lng,
-                         date: newDate,
-                         tripDate: startDate,
-                         tripDue: daysToTrip
                      })
-                     // updateUI(); // moving this as I added new calls
-                     // we can log here to the UI like so
-                     //##############################Display to UI###########################################
-                     //document.getElementById('content').innerHTML = cityData.name;
-                 document.getElementById('country').innerHTML = cityData.countryName;
-                 document.getElementById('city').innerHTML = cityData.name;
-                 //document.getElementById('date').innerHTML = newDate;
-                 document.getElementById("depart-date").innerHTML = startDate;
-                 document.getElementById('lat').innerHTML = cityData.lat;
-                 document.getElementById('lon').innerHTML = cityData.lng;
-                 //######################################################################### 
-                 // call the trip deyails
-                 //tripDetails(startDate);
-             })
-             //get weatherbit.io data ###5.5
-         getWeatherData(weatherBaseURL, city, weatherApi_key) //###(tripData)
-             .then(function(weather_data) { //###(projectData) {
-                 let cityWeather = weather_data.data[0]; //### projectData.data;
-                 console.log(weather_data);
-                 console.log("::: City Weather :::", cityWeather);
+                     // display destination image
+                     //document.getElementById("image").src = cityImageData.previewURL;
+                 document.getElementById("image").src = cityImageData.webformatURL;
 
-                 postWeatherData('addWeatherData', {
-                         weather: cityWeather.weather.description,
-                         high: cityWeather.high_temp, //" &#176;" + "C"
-                         low: cityWeather.low_temp
-                     })
-                     //########################Display#################################################
-                     //display to ui: for testing only, move to ui later
-                 document.getElementById('description').innerHTML = cityWeather.weather.description;
-                 document.getElementById('temp-high').innerHTML = cityWeather.high_temp;
-                 document.getElementById('temp-low').innerHTML = cityWeather.low_temp;
-                 //######################################################################### 
-             })
+             } else {
+                 console.log("No image found for the city");
+                 document.getElementById("destination_img").innerHTML = "Sorry, no image for this destination";
+             }
+         })
+         //getCityData from the projectData
+     getGeoNames(cityBaseURL, cityName, userName) //(baseURL, zipCode,countdownDates apiKey)
+         .then(function(projectData) {
 
-         .catch((error) => {
-             console.log("Error:", error);
-         });
-         //require.end();
-         countdownDates(daysToTrip);
+             let cityData = projectData.geonames[0];
+             console.log("::: City Data :::", cityData);
 
-         return true
-     } else {
-         alert(tripErrMsg);
-         return false;
-     }
+             console.log("latlon:", cityData.lat, cityData.lng);
+
+             postData('addGeoNames', {
+                     city: cityData.name,
+                     country: cityData.countryCode,
+                     country_name: cityData.countryName,
+                     latitude: cityData.lat,
+                     longitude: cityData.lng,
+                     date: newDate,
+                     tripDate: startDate,
+                     tripDue: daysToTrip
+                 })
+                 // updateUI(); // moving this as I added new calls
+                 // we can log here to the UI like so
+                 //##############################Display to UI###########################################
+                 //document.getElementById('content').innerHTML = cityData.name;
+             document.getElementById('country').innerHTML = cityData.countryName;
+             document.getElementById('city').innerHTML = cityData.name;
+             //document.getElementById('date').innerHTML = newDate;
+             document.getElementById("depart-date").innerHTML = startDate;
+             document.getElementById('lat').innerHTML = cityData.lat;
+             document.getElementById('lon').innerHTML = cityData.lng;
+             //######################################################################### 
+             // call the trip deyails
+             //tripDetails(startDate);
+         })
+         //get weatherbit.io data ###5.5
+     getWeatherData(weatherBaseURL, city, weatherApi_key) //###(tripData)
+         .then(function(weather_data) { //###(projectData) {
+             let cityWeather = weather_data.data[0]; //### projectData.data;
+             console.log(weather_data);
+             console.log("::: City Weather :::", cityWeather);
+
+             postWeatherData('addWeatherData', {
+                     weather: cityWeather.weather.description,
+                     high: cityWeather.high_temp, //" &#176;" + "C"
+                     low: cityWeather.low_temp
+                 })
+                 //########################Display#################################################
+                 //display to ui: for testing only, move to ui later
+             document.getElementById('description').innerHTML = cityWeather.weather.description;
+             document.getElementById('temp-high').innerHTML = cityWeather.high_temp;
+             document.getElementById('temp-low').innerHTML = cityWeather.low_temp;
+             //######################################################################### 
+         })
+
+     .catch((error) => {
+         console.log("Error:", error);
+     });
+     //require.end();
+     countdownDates(daysToTrip);
+
+     /* return true
+ } else {
+     alert(tripErrMsg);
+     return false;
+ }
+ */
  }
 
  function checkINPUT(input) {
-
      //let url = document.getElementById('name').value;
      const errorMsg = "Please check your date and city are valid";
 
@@ -201,7 +198,6 @@
      } catch (error) {
          console.log("imgError :", error);
      }
-
  }
 
  // Get weather from weather io, use tripdata as asyn param
@@ -210,12 +206,6 @@
 
      city = cityName.value;
      weather_url = `${weatherBaseURL}city=${city}&key=${weatherApi_key}`;
-     //latitude = postData.geonames.latitude;
-     //longitude = postData.geonames.longitude;
-
-     //5.3 get lat, lon from tripData
-     //  latitude = tripData.latitude;
-     //  longitude = tripData.longitude;
 
      // sending a request thru proxy to avoid CORS Error
      const response = await fetch(weather_url);
@@ -273,22 +263,6 @@
      }
  }
 
- /* const postTripData = async(url = '', trip_data = {}) => {
-     console.log(trip_data);
-     let lat, lon, city_name, city_img;
-
-     try {
-         const city_url = `${cityBaseURL}q=${city}&maxRows=10&username=${userName}`;
-
-         const weather_url = `${weatherBaseURL}city=${city}&key=${weatherApi_key}`;
-
-         const image_url = `${pixBaseURL}key=${pixApiKEY}&q=${city_img}&image_type=${imgType}`;
-
-     } catch (error) {
-
-     }
- } */
-
  //=========== 1. set up post data async fun ==================
  const postData = async(url = '', data = {}) => { //post city data
      console.log(data);
@@ -339,40 +313,28 @@
  // Update The UI
  const updateUI = async() => {
 
-         const request = await fetch('/all'); //fetch('http://localhost:8000/all'); //
-         console.log('UPDATE UI');
+     const request = await fetch('/all'); //fetch('http://localhost:8000/all'); //
+     console.log('UPDATE UI');
 
-         try {
-             const allData = await request.json();
-             console.log('allData: ' + allData);
+     try {
+         const allData = await request.json();
+         console.log('allData: ' + allData);
 
-             let index = allData.length - 1;
-             // get the last entry in the array and update the ui with it as below
-             document.getElementById('lat').innerHTML = allData[index].lat;
-             document.getElementById('lon').innerHTML = allData[index].lng;
-             document.getElementById('city').innerHTML = allData[index].name;
-             document.getElementById('country').innerHTML = allData[index].countryName;
-             //document.getElementById('country-code').innerHTML = allData[index].countryCode; // placeholder
-             //document.getElementById('city-name').innerHTML = allData[index].name; // placeholder
-             //document.getElementById('date').innerHTML = "Date: " + newDate;
+         let index = allData.length - 1;
+         // get the last entry in the array and update the ui with it as below
+         document.getElementById('lat').innerHTML = allData[index].lat;
+         document.getElementById('lon').innerHTML = allData[index].lng;
+         document.getElementById('city').innerHTML = allData[index].name;
+         document.getElementById('country').innerHTML = allData[index].countryName;
+         //document.getElementById('country-code').innerHTML = allData[index].countryCode; // placeholder
+         //document.getElementById('city-name').innerHTML = allData[index].name; // placeholder
+         //document.getElementById('date').innerHTML = "Date: " + newDate;
 
-         } catch (error) {
-             console.log("error", error);
-             console.error("Update UIError", error);
-         }
+     } catch (error) {
+         console.log("error", error);
+         console.error("Update UIError", error);
      }
-     //  const theDate = document.getElementById('date');
-     //  theDate.innerHTML = currentDate;
-
-
-
- //add listener and a callback function to the button
- //document.getElementById('generate').addEventListener('click', performAction);
- // this is failing jest, saw this in a knowledge question
- /* document.addEventListener('DOMContentLoaded', () => {
-     const submitBtn = document.getElementById("generate");
-     submitBtn.addEventListener("click", performAction);
- }); */
+ }
 
 
  export {

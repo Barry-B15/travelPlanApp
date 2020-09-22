@@ -8,8 +8,10 @@ function sum(a, b) {
 function countdownDates(days) {
 
     var currentDate = moment().format("L"); // today's date
+    //var currentDate = moment();
 
     var startDate = moment(document.getElementById("startDate").value, "MM-DD-YYYY"); // trip departure
+
     var endDate = moment(document.getElementById("returnDate").value, "MM-DD-YYYY"); // returning date
 
     var dueIn = moment.duration(startDate.diff(currentDate)); // diff btw departure and return dates
